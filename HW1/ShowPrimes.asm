@@ -1,5 +1,4 @@
 .data
-	
 	prm: .asciiz "prime"
 	opPar: .asciiz "("
 	clsPar: .asciiz ")"
