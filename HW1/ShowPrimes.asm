@@ -77,3 +77,5 @@ main:
 		# exit the program(return 0)
 		li $v0,10
 		syscall
+		
+		
