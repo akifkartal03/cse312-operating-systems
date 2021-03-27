@@ -2,8 +2,9 @@
 	
 	#int arr[MAX_SIZE];
 	arr: .space 400 # MAX_SIZE is 100, it can be modified.(400=100*4).
-	msg1: .asciiz "Enter size of Array:"
+	msg1: .asciiz "Enter size of Array: "
 	msg2: .asciiz "Enter array elements one by one\n"
+	msg3: .asciiz "Sorted Array:\n"
 	space: .asciiz " "
 	newLine: .asciiz "\n"
 	# don't use memory for other variables for better performance.
@@ -45,12 +46,13 @@ main:
 		li $t5, 0 #int temp;
 		move $t6,$a0 
 		move $t7,$a0 #t7 = n
-		subi $t6, $t6, 4 # t6 = n - 1
+		li $s5,4
+		sub $t6, $t6, $s5
 		LoopOut:
 			bge $t3,$t6,return
 			move $t7,$a0 #t7 = n
 			sub $t7,$t7,$t3 # n-i
-			subi $t7, $t7, 4 #n-i-1
+			sub $t7, $t7, $s5 #n-i-1
 			li $t4, 0 #int j;
 			LoopInner:
 				bge $t4,$t7,increment
@@ -70,6 +72,9 @@ main:
 			jr $ra
 			
 	print:
+		li $v0,4
+		la $a0,msg3
+		syscall
 		li $t5, 0
 		Loop5:
 			bge $t5, $t0, exit # i < n

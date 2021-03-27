@@ -10,6 +10,7 @@
 
 main:
 
+	li $t5, 1
 	li $v0, 4
 	la $a0, msg
 	syscall
@@ -33,7 +34,7 @@ main:
 			div $t0, $t1      
         		mfhi $t2           
         		beq $t2, 0, print
-        		subi $t1,$t1,1
+        		sub $t1,$t1,$t5
 			j Loop1
 		printNumber:
 			li $v0, 1
@@ -50,7 +51,7 @@ main:
 			li $v0,4
 			la $a0,comma
 			syscall
-			subi $t1,$t1,1
+			sub $t1,$t1,$t5
 			j Loop1
 		
 	printPozitives:
