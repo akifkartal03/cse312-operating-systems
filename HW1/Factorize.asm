@@ -38,7 +38,7 @@ main:
 			j Loop1
 		printNumber:
 			li $v0, 1
-			move $a0,$t0
+			subu $a0, $zero, $t0
 			syscall
 			li $v0,4
 			la $a0,newLine
@@ -46,7 +46,7 @@ main:
 			j exit
 		print:
 			li $v0, 1
-			move $a0,$t1
+			subu $a0, $zero, $t1
 			syscall 
 			li $v0,4
 			la $a0,comma
