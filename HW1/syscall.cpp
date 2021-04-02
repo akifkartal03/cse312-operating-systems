@@ -65,7 +65,6 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 
-
 void myInvalidParameterHandler(const wchar_t *expression,
                                const wchar_t *function,
                                const wchar_t *file,
@@ -249,7 +248,7 @@ int do_syscall()
   }
   case CREATE_PROCESS_SYSCALL:
   {
-	doContextSwitch();
+    doContextSwitch();
     break;
   }
 
@@ -283,129 +282,128 @@ void loadFile(char *filename)
   read_assembly_file(filename);
   loadProgram();
 }
-void doContextSwitch(){
-	char filename[41];
-    strcpy(filename, (char *)mem_reference(R[REG_A0]));
-    filename[strlen(filename) - 1] = '\0'; 
-    if (strcmp(filename, "exit") == 0)
-          R[REG_V0] = 1;
-    else{
-    	struct stat buf;
-  		if (stat (filename, &buf) == 0)
-  		{
-  			/*define the memory variables to make context switch*/
-		    reg_word n_R[R_LENGTH];
-		    reg_word n_HI, n_LO;
-		    //int n_HI_present, n_LO_present;
-		    mem_addr n_PC, n_nPC;
-		    //double *n_FPR; /* Dynamically allocate so overlay */
-		    //float *n_FGR;  /* is possible */
-		    //int *n_FWR;    /* is possible */
-		    reg_word n_CCR[4][32], n_CPR[4][32];
-		    int data_size;
-		    int stack_size;
-		    int k_data_size;
-		    instruction **n_text_seg;
-		    bool n_text_modified; /* => text segment was written */
-		    mem_addr n_text_top;
-		    mem_word *n_data_seg;
-		    bool n_data_modified;    /* => a data segment was written */
-		    short *n_data_seg_h;     /* Points to same vector as DATA_SEG */
-		    BYTE_TYPE *n_data_seg_b; /* Ditto */
-		    mem_addr n_data_top;
-		    mem_addr n_gp_midpoint; /* Middle of $gp area */
-		    mem_word *n_stack_seg;
-		    short *n_stack_seg_h;     /* Points to same vector as STACK_SEG */
-		    BYTE_TYPE *n_stack_seg_b; /* Ditto */
-		    mem_addr n_stack_bot;
-		    instruction **n_k_text_seg;
-		    mem_addr n_k_text_top;
-		    mem_word *n_k_data_seg;
-		    short *n_k_data_seg_h;
-		    BYTE_TYPE *n_k_data_seg_b;
-		    mem_addr n_k_data_top;
-		    data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
-		    stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
-		    k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
-		    n_text_seg = (instruction **)xmalloc(BYTES_TO_INST(initial_text_size));
-		    n_data_seg = (mem_word *)xmalloc(data_size);
-		    n_stack_seg = (mem_word *)xmalloc(stack_size);
-		    n_k_text_seg = (instruction **)xmalloc(BYTES_TO_INST(initial_k_text_size));
-		    n_k_data_seg = (mem_word *)xmalloc(k_data_size);
-		    memcpy(n_R, R, R_LENGTH * sizeof(reg_word));
-		    n_HI = HI;
-		    n_LO = LO;
-		    n_PC = PC;
-		    n_nPC = nPC;
-		    memcpy(n_CCR, CCR, (4 * 32) * sizeof(reg_word));
-		    memcpy(n_CPR, CPR, (4 * 32) * sizeof(reg_word));
-		    memcpy(n_text_seg, text_seg, BYTES_TO_INST(initial_text_size));
-		    memcpy(n_data_seg, data_seg, data_size);
-		    memcpy(n_stack_seg, stack_seg, stack_size);
-		    memcpy(n_k_text_seg, k_text_seg, BYTES_TO_INST(initial_k_text_size));
-		    memcpy(n_k_data_seg, k_data_seg, k_data_size);
-		    n_text_modified = text_modified;
-		    n_text_top = text_top;
-		    n_data_modified = data_modified;
-		    n_data_seg_h = data_seg_h;
-		    n_data_seg_b = data_seg_b;
-		    n_data_top = data_top;
-		    n_gp_midpoint = gp_midpoint;
-		    n_stack_seg_h = stack_seg_h;
-		    n_stack_seg_b = stack_seg_b;
-		    n_stack_bot = stack_bot;
-		    n_k_text_seg = k_text_seg;
-		    n_k_text_top = k_text_top;
-		    n_k_data_seg_h = data_seg_h;
-		    n_k_data_seg_b = k_data_seg_b;
-		    n_k_data_top = k_data_top;
-		    text_seg = NULL;
-		    data_seg = NULL;
-		    stack_seg = NULL;
-		    k_text_seg = NULL;
-		    k_data_seg = NULL;
-		    
-		    /*create new process*/
-		    loadFile(filename);
+void doContextSwitch()
+{
+  char filename[41];
+  strcpy(filename, (char *)mem_reference(R[REG_A0]));
+  filename[strlen(filename) - 1] = '\0';
+  if (strcmp(filename, "exit") == 0)
+    R[REG_V0] = 1;
+  else
+  {
+    struct stat buf;
+    if (stat(filename, &buf) == 0)
+    {
+      /*define the memory variables to make context switch*/
+      reg_word n_R[R_LENGTH];
+      reg_word n_HI, n_LO;
+      //int n_HI_present, n_LO_present;
+      mem_addr n_PC, n_nPC;
+      //double *n_FPR; /* Dynamically allocate so overlay */
+      //float *n_FGR;  /* is possible */
+      //int *n_FWR;    /* is possible */
+      reg_word n_CCR[4][32], n_CPR[4][32];
+      int data_size;
+      int stack_size;
+      int k_data_size;
+      instruction **n_text_seg;
+      bool n_text_modified; /* => text segment was written */
+      mem_addr n_text_top;
+      mem_word *n_data_seg;
+      bool n_data_modified;    /* => a data segment was written */
+      short *n_data_seg_h;     /* Points to same vector as DATA_SEG */
+      BYTE_TYPE *n_data_seg_b; /* Ditto */
+      mem_addr n_data_top;
+      mem_addr n_gp_midpoint; /* Middle of $gp area */
+      mem_word *n_stack_seg;
+      short *n_stack_seg_h;     /* Points to same vector as STACK_SEG */
+      BYTE_TYPE *n_stack_seg_b; /* Ditto */
+      mem_addr n_stack_bot;
+      instruction **n_k_text_seg;
+      mem_addr n_k_text_top;
+      mem_word *n_k_data_seg;
+      short *n_k_data_seg_h;
+      BYTE_TYPE *n_k_data_seg_b;
+      mem_addr n_k_data_top;
+      data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
+      stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
+      k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
+      n_text_seg = (instruction **)xmalloc(BYTES_TO_INST(initial_text_size));
+      n_data_seg = (mem_word *)xmalloc(data_size);
+      n_stack_seg = (mem_word *)xmalloc(stack_size);
+      n_k_text_seg = (instruction **)xmalloc(BYTES_TO_INST(initial_k_text_size));
+      n_k_data_seg = (mem_word *)xmalloc(k_data_size);
+      memcpy(n_R, R, R_LENGTH * sizeof(reg_word));
+      n_HI = HI;
+      n_LO = LO;
+      n_PC = PC;
+      n_nPC = nPC;
+      memcpy(n_CCR, CCR, (4 * 32) * sizeof(reg_word));
+      memcpy(n_CPR, CPR, (4 * 32) * sizeof(reg_word));
+      memcpy(n_text_seg, text_seg, BYTES_TO_INST(initial_text_size));
+      memcpy(n_data_seg, data_seg, data_size);
+      memcpy(n_stack_seg, stack_seg, stack_size);
+      memcpy(n_k_text_seg, k_text_seg, BYTES_TO_INST(initial_k_text_size));
+      memcpy(n_k_data_seg, k_data_seg, k_data_size);
+      n_text_modified = text_modified;
+      n_text_top = text_top;
+      n_data_modified = data_modified;
+      n_data_seg_h = data_seg_h;
+      n_data_seg_b = data_seg_b;
+      n_data_top = data_top;
+      n_gp_midpoint = gp_midpoint;
+      n_stack_seg_h = stack_seg_h;
+      n_stack_seg_b = stack_seg_b;
+      n_stack_bot = stack_bot;
+      n_k_text_seg = k_text_seg;
+      n_k_text_top = k_text_top;
+      n_k_data_seg_h = data_seg_h;
+      n_k_data_seg_b = k_data_seg_b;
+      n_k_data_top = k_data_top;
+      text_seg = NULL;
+      data_seg = NULL;
+      stack_seg = NULL;
+      k_text_seg = NULL;
+      k_data_seg = NULL;
 
-		    memcpy(R, n_R, R_LENGTH * sizeof(reg_word));
-		    HI = n_HI;
-		    LO = n_LO;
-		    PC = n_PC;
-		    nPC = n_nPC;
-		    memcpy(CCR, n_CCR, (4 * 32) * sizeof(reg_word));
-		    memcpy(CPR, n_CPR, (4 * 32) * sizeof(reg_word));
-		    memcpy(text_seg, n_text_seg, BYTES_TO_INST(initial_text_size));
-		    memcpy(data_seg, n_data_seg, initial_data_size);
-		    memcpy(stack_seg, n_stack_seg, initial_stack_size);
-		    memcpy(k_text_seg, n_k_text_seg, BYTES_TO_INST(initial_k_text_size));
-		    memcpy(k_data_seg, n_k_data_seg, k_data_size);
-		    text_modified = n_text_modified;
-		    text_top = n_text_top;
-		    data_modified = n_data_modified;
-		    data_seg_h = n_data_seg_h;
-		    data_seg_b = n_data_seg_b;
-		    data_top = n_data_top;
-		    gp_midpoint = n_gp_midpoint;
-		    stack_seg_h = n_stack_seg_h;
-		    stack_seg_b = n_stack_seg_b;
-		    stack_bot = n_stack_bot;
-		    k_text_seg = n_k_text_seg;
-		    k_text_top = n_k_text_top;
-		    k_data_seg_h = n_k_data_seg_h;
-		    k_data_seg_b = n_k_data_seg_b;
-		    k_data_top = n_k_data_top;
-		    R[REG_V0] = 0;
-  		}
-  		else{
-            R[REG_V0] = -1;
-  		}
+      /*create new process*/
+      loadFile(filename);
 
+      memcpy(R, n_R, R_LENGTH * sizeof(reg_word));
+      HI = n_HI;
+      LO = n_LO;
+      PC = n_PC;
+      nPC = n_nPC;
+      memcpy(CCR, n_CCR, (4 * 32) * sizeof(reg_word));
+      memcpy(CPR, n_CPR, (4 * 32) * sizeof(reg_word));
+      memcpy(text_seg, n_text_seg, BYTES_TO_INST(initial_text_size));
+      memcpy(data_seg, n_data_seg, initial_data_size);
+      memcpy(stack_seg, n_stack_seg, initial_stack_size);
+      memcpy(k_text_seg, n_k_text_seg, BYTES_TO_INST(initial_k_text_size));
+      memcpy(k_data_seg, n_k_data_seg, k_data_size);
+      text_modified = n_text_modified;
+      text_top = n_text_top;
+      data_modified = n_data_modified;
+      data_seg_h = n_data_seg_h;
+      data_seg_b = n_data_seg_b;
+      data_top = n_data_top;
+      gp_midpoint = n_gp_midpoint;
+      stack_seg_h = n_stack_seg_h;
+      stack_seg_b = n_stack_seg_b;
+      stack_bot = n_stack_bot;
+      k_text_seg = n_k_text_seg;
+      k_text_top = n_k_text_top;
+      k_data_seg_h = n_k_data_seg_h;
+      k_data_seg_b = n_k_data_seg_b;
+      k_data_top = n_k_data_top;
+      R[REG_V0] = 0;
     }
-    
+    else
+    {
+      R[REG_V0] = -1;
+    }
+  }
 }
-
-
 
 void handle_exception()
 {
