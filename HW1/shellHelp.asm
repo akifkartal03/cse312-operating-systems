@@ -5,6 +5,7 @@ symbol: .asciiz "Shell> "
 filename: .space 41  
 
 .text
+.globl main
 
 main:	
     InfinitLoop:

@@ -4,6 +4,7 @@ msg: .asciiz "File was not found!"
 filename: .asciiz "shellHelp.asm "  
 
 .text
+.globl main
 
 main:	
         la $a0, filename # char *args[]={"./spim", "-file","shellHelp.asm",NULL};
