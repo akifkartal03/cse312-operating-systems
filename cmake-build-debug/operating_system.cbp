@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="operating_system"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/akif/Desktop/operating-system/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/akif/Desktop/operating-system/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/akif/Desktop/operating-system/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="operating_system">
+				<Option output="/home/akif/Desktop/operating-system/cmake-build-debug/operating_system" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/akif/Desktop/operating-system/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/akif/Desktop/operating-system/HW1"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/CPU"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/PCSpim"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/QtSpim"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/spim"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/xspim"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 operating_system"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="operating_system/fast">
+				<Option output="/home/akif/Desktop/operating-system/cmake-build-debug/operating_system" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/akif/Desktop/operating-system/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/akif/Desktop/operating-system/HW1"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/CPU"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/PCSpim"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/QtSpim"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/spim"/>
+					<Add directory="/home/akif/Desktop/operating-system/HW2/spim/xspim"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 operating_system/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/akif/Desktop/operating-system/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/akif/Desktop/operating-system/HW1/shell.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW1/syscall.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW1/syscall.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW1/test.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/data.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/data.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/display-utils.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/dump_ops.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/inst.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/inst.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/mem.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/mem.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/op.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/parser.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/reg.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/run.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/run.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/scanner.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/spim-syscall.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/spim-utils.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/spim-utils.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/spim.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/string-stream.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/string-stream.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/syscall.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/syscall.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/CPU/version.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/BreakpointDlg.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/BreakpointDlg.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/ConsoleWnd.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/ConsoleWnd.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/MainFrm.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/MainFrm.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/MultiStepDlg.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/MultiStepDlg.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpim.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpim.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpimDoc.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpimDoc.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpimView.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpimView.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/Regman.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/Regman.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/RunDlg.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/RunDlg.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/SetValueDlg.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/SetValueDlg.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/SettingsDlg.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/SettingsDlg.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/SpimReg.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/SpimSupport.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/StdAfx.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/StdAfx.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/resource.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/util.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/PCSpim/util.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/console.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/console.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/datatextedit.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/datawin.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/main.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/menu.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/parser_yacc.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/parser_yacc.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/regtextedit.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/regwin.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/scanner_lex.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/settablecheckbox.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/spim_settings.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/spim_support.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/spimview.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/spimview.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/state.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/texttextedit.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/QtSpim/textwin.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/spim/lex.yy.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/spim/parser_yacc.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/spim/parser_yacc.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/spim/spim.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/xspim/buttons.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/xspim/buttons.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/xspim/windows.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/xspim/windows.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/xspim/xspim.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/xspim/xspim.h">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/Practices/hw1/bubble_sort.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/Practices/hw1/factors.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/Practices/hw1/show_primes.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/Practices/hw1/test.c">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
