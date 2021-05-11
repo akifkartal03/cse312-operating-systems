@@ -71,3 +71,4 @@ enum State {
 #define EXIT_THREAD_SYSCALL    20
 #define LOCK_MUTEX_SYSCALL     21
 #define UNLOCK_MUTEX_SYSCALL   22
+#define LOAD_ASM_SYSCALL   23

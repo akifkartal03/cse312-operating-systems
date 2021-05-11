@@ -108,22 +108,6 @@ void windowsParameterHandlingControl(int flag )
 }
 #endif
 
-
-/*You implement your handler here*/
-void SPIM_timerHandler()
-{
-   // Implement your handler..
-   try
-   {
-	throw logic_error( "NotImplementedException\n" );
-   }
-   catch ( exception &e )
-   {
-      cerr <<  endl << "Caught: " << e.what( ) << endl;
-
-   };
-   
-}
 /*define thread properties*/
 typedef struct Thread{
     /*thread specific info*/
@@ -144,6 +128,7 @@ typedef struct Thread{
     mem_addr t_stack_bot;
 
 }thread;
+/*init process info*/
 typedef struct InitProcess{
     /*Initial Process Info*/
     int processID;// will be 0
@@ -207,6 +192,12 @@ public:
     void setCurrentState(State state){
         myThread.currentState = state;
     }
+    thread getThread(){
+        return myThread;
+    }
+    void setThread(thread newThread){
+        myThread = newThread;
+    }
     void setThreadSpecificData(){
         myThread.t_stack_seg_h = stack_seg_h;
         myThread.t_stack_seg_b = stack_seg_b;
@@ -253,9 +244,13 @@ private:
     thread myThread;
 };
 class HandleInitProcess{
+public:
     HandleInitProcess(){
         process.processID = 0;
         setProcess();
+        tid = 0;
+        createThread();
+        doContextSwitch(1);
 
     }
     HandleInitProcess(InitProcess newProcess){
@@ -264,7 +259,7 @@ class HandleInitProcess{
     int getInitProcessID() const {
         return process.processID;
     }
-    void addNewThread(HandleThread thread1){
+    void addNewThread(HandleThread *thread1){
         threadTable.push_back(thread1);
     }
     void setProcess(){
@@ -334,35 +329,152 @@ class HandleInitProcess{
         k_data_seg_h = (short *) process.i_k_data_seg;
     }
     void createThread(){
+        HandleThread *thread3 = new HandleThread();
+        thread3->setID(tid);
+        char tempName[41];
+        sprintf(tempName,"thread%d",tid);
+        thread3->setName(tempName);
+        thread3->setCurrentState(Ready);
         PC += BYTES_PER_WORD;
-        HandleThread thread3;
-        thread3.getThreadSpecificData();
-        threadTable.push_back(thread3);
-        readyQueue.push(thread3);
+        thread3->setThreadSpecificData();
         PC -= BYTES_PER_WORD;
+        threadTable.push_back(thread3);
+        readyQueue.push(thread3->getThreadID());
+        tid++;
+        printAllThreads();
+        R[REG_V0] = 0;
     }
+    //join is waiting a specific thread
     void joinThread(int id){
+        int result;
+        if (isFinished(id))
+            result = 0;
+        if (getCurrent() == id)
+            result = 0;
+        result = 1+id;
+        removeThread(id);
+        R[REG_V0] = result;
+        doContextSwitch(0);
 
     }
-    //todo::exit mutex lock mutex unlock finish....
+    void doContextSwitch(int finished){
+        if (readyQueue.empty())
+            return;
+        HandleThread *next = getThread(readyQueue.front());
+        readyQueue.pop();
+        if (!finished)
+            handleInterrupt();
+        next->setCurrentState(Running);
+        curTid = next->getThreadID();
+        next->setThreadSpecificData();
+        write_output(console_out, "****Thread is Changing*****\n");
+        next->printThreadInfo();
+    }
+    void handleInterrupt(){
+        HandleThread *curr = getThread(curTid);
+        curr->setCurrentState(Blocked);
+        curr->getThreadSpecificData();
+        readyQueue.push(curTid);
+    }
     void printAllThreads(){
         for (auto & thr : threadTable) {
-            thr.printThreadInfo();
+            thr->printThreadInfo();
+        }
+    }
+    bool isFinished(int threadID){
+        for (auto & thr : threadTable) {
+            if(thr->getThreadID() == threadID)
+                return false;
+        }
+        return true;
+    }
+    int getCurrent(){
+        for (auto & thr : threadTable) {
+            if(thr->getCurrentState() == Running)
+                return thr->getThreadID();
+        }
+        return -1;
+    }
+    HandleThread *getThread(int id){
+        for (auto & thr : threadTable) {
+            if(thr->getThreadID() == id)
+                return thr;
+        }
+    }
+    void removeThread(int id){
+        int i = 0;
+        int index = -1;
+        for (auto & thr : threadTable) {
+            if(thr->getThreadID() == id){
+                index = i;
+            }
+            i++;
+        }
+        if (index != -1){
+            threadTable.erase(threadTable.begin() + index);
+        }
+    }
+    void exitThread(int id){
+        removeThread(id);
+    }
+    void runAsm(char *filename){
+        if (access(filename, F_OK) != -1) {
+            thread temp = getThread(curTid)->getThread();
+            temp.t_stack_seg = NULL;
+            getThread(curTid)->setThread(temp);
+            text_seg = NULL;
+            data_seg = NULL;
+            k_text_seg = NULL;
+            k_data_seg = NULL;
+            initialize_world(exception_file_name, false);
+            read_assembly_file(filename);
+            PC = starting_address();
+            thread temp2 = getThread(curTid)->getThread();
+            temp2.t_PC = starting_address();
+            getThread(curTid)->setThread(temp2);
+        }
+        else
+        {
+            write_output(console_out, "%s is not found!!", filename);
         }
     }
     void clearAll(){
         for (auto & thr : threadTable) {
-            thr.giveResources();
+            thr->giveResources();
         }
         free(process.i_data_seg);
         free(process.i_stack_seg);
         free(process.i_k_data_seg);
     }
+    int getTID(){
+        return tid;
+    }
+    int getCurrTid(){
+        return curTid;
+    }
+    void createInit(){
+        process.processID = 0;
+        setProcess();
+    }
+    bool isEmpty(){
+        return (threadTable.size() == 0);
+    }
 private:
     InitProcess process;
-    vector<HandleThread> threadTable;
-    queue<HandleThread> readyQueue; //round robing scheduling thread queue.
+    vector<HandleThread*> threadTable;
+    queue<int> readyQueue; //round robing scheduling thread queue.
+    int tid; //counter for unique tid
+    int curTid;
 };
+
+HandleInitProcess kernel;
+/*You implement your handler here*/
+void SPIM_timerHandler()
+{
+    // Implement your handler..
+    kernel.doContextSwitch(0);
+
+}
 
 
 /* Decides which syscall to execute or simulate.  Returns zero upon
@@ -509,8 +621,47 @@ do_syscall ()
 #endif
 	break;
       }
+        case CREATE_THREAD_SYSCALL: {
+            kernel.createThread();
+            break;
+        }
 
-    default:
+        case JOIN_THREAD_SYSCALL: {
+            kernel.joinThread(R[REG_A0]);
+            break;
+        }
+
+
+        case EXIT_THREAD_SYSCALL: {
+            spim_return_value = 0;
+
+            if (kernel.isEmpty()) // if no thread then terminate
+                return 0;
+            else // delete current process from process table.
+                kernel.removeThread(kernel.getCurrent());
+            kernel.doContextSwitch(1);
+            PC -=4;
+            break;
+        }
+
+
+        case LOCK_MUTEX_SYSCALL:{
+
+            break;
+        }
+        case UNLOCK_MUTEX_SYSCALL:{
+
+            break;
+        }
+        case LOAD_ASM_SYSCALL:{
+            char filename[30];
+            strcpy(filename, (char*) mem_reference (R[REG_A0]));
+            kernel.runAsm(filename);
+            break;
+        }
+
+
+        default:
       run_error ("Unknown system call: %d\n", R[REG_V0]);
       break;
     }
