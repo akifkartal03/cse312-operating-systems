@@ -34,6 +34,8 @@ add_executable(operating_system
         HW2/spim/CPU/spim-utils.h
         HW2/spim/CPU/spim.h
         HW2/spim/CPU/string-stream.cpp
+        HW2/spim/CPU/syscall.cpp
+        HW2/spim/CPU/syscall.h
         HW2/spim/CPU/string-stream.h
         HW2/spim/CPU/sym-tbl.cpp
         HW2/spim/CPU/sym-tbl.h

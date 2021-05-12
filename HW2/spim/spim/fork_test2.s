@@ -1,9 +1,9 @@
 .text
 
-main:   li $v0, 18      # fork
+main:   li $v0, 18      
         syscall
 
-        li $v0, 18      # fork
+        li $v0, 18      
         syscall
 
 exit1:  li $v0, 10

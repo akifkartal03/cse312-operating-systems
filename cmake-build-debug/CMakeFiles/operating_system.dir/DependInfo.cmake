@@ -66,6 +66,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/akif/Desktop/operating-system/HW2/spim/spim/lex.yy.cpp" "/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.o"
   "/home/akif/Desktop/operating-system/HW2/spim/spim/parser_yacc.cpp" "/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.o"
   "/home/akif/Desktop/operating-system/HW2/spim/spim/spim.cpp" "/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.o"
+  "/home/akif/Desktop/operating-system/HW2/test/syscall.cpp" "/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

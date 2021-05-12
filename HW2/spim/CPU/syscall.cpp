@@ -51,12 +51,12 @@
 #include "mem.h"
 #include "sym-tbl.h"
 #include "syscall.h"
+#include "spim-utils.h"
+#define BYTES_TO_INST(N) (((N) + BYTES_PER_WORD - 1) / BYTES_PER_WORD * sizeof(instruction *))
 
-#include <assert.h>
-#include <map>
+#include <iostream>
+#include <vector>
 #include <queue>
-#include <list>
-
 using namespace std;
 
 #ifdef _WIN32
@@ -108,490 +108,436 @@ void windowsParameterHandlingControl(int flag )
 }
 #endif
 
-/* utility functions implement for the hw. */
-#include "spim-utils.h"
-#define BYTES_TO_INST(N) (((N) + BYTES_PER_WORD - 1) / BYTES_PER_WORD * sizeof(instruction*))
+/*define thread properties*/
+typedef struct Thread{
+    /*thread specific info*/
+    //program counter
+    //register
+    //stack
+    //state
+    int threadID;
+    char name[41];
+    char funcName[41];
+    State currentState;
+    mem_addr t_PC, t_nPC; // program counter
+    reg_word t_R[R_LENGTH]; // registers.
+    /*thread stack*/
+    int t_stack_size;
+    mem_word *t_stack_seg;
+    short *t_stack_seg_h;
+    BYTE_TYPE *t_stack_seg_b;
+    mem_addr t_stack_bot;
 
+}thread;
+/*init process info*/
+typedef struct InitProcess{
+    /*Initial Process Info*/
+    int processID;// will be 0
 
-/**
- * process, process-table entry.
- * contains the fields necessary to store for a typical process.
- * fields are exported from 'mem.h' header.
-**/
-class Process {
+    //process specific data
+    reg_word i_R[R_LENGTH];
+    reg_word i_HI, i_LO;
+    mem_addr i_PC, i_nPC;
+    reg_word i_CCR[4][32], i_CPR[4][32];
+    instruction **i_text_seg;
+    bool i_text_modified;
+    mem_addr i_text_top;
+    mem_word *i_data_seg;
+    bool i_data_modified;
+    short *i_data_seg_h;
+    BYTE_TYPE *i_data_seg_b;
+    mem_addr i_data_top;
+    mem_addr i_gi_midpoint;
+    mem_word *i_stack_seg;
+    short *i_stack_seg_h;
+    BYTE_TYPE *i_stack_seg_b;
+    mem_addr i_stack_bot;
+    instruction **i_k_text_seg;
+    mem_addr i_k_text_top;
+    mem_word *i_k_data_seg;
+    short *i_k_data_seg_h;
+    BYTE_TYPE *i_k_data_seg_b;
+    mem_addr i_k_data_top;
+    int i_data_size;
+    int i_stack_size;
+    int i_k_data_size;
+
+}initProcess;
+class HandleThread{
 public:
-
-   /* process states */
-    enum State {
-        Running,
-        Ready,
-        Blocked,
+    HandleThread(){
+        myThread.currentState=Blocked;
+        myThread.threadID = -1;
     };
-
-    // TODO: don't forget to return the $v0=0 to child process and $v0=child_pid to parent process.
-
-    Process() = delete;
-    Process(Process&) = delete;
-
-    /**
-     * initialize a process image, by copying the image of given current caller.
-     * fork design implemented here for creating the process, because we won't
-     * need any other way after all.
-     */
-    Process(char *name, bool init, int id){
-        p_data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
-        p_stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
-        p_k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
-
-        /* start of image cloning  */
-
-        if (!init) { // create segment if not init.
-            p_data_seg = (mem_word *) xmalloc(p_data_size);
-            p_stack_seg = (mem_word *) xmalloc(p_stack_size);
-            p_k_data_seg = (mem_word *) xmalloc(p_k_data_size);
-        }
-
-
-        ID = id;
-        parentID = CCR[1][0];
-        strcpy(this->name, name);
-        this->init = init;
-        p_state = State::Ready;
-        fromCPU(true); // copy the img from current context.
-
-        /* end of image cloning. */
-
-        /* we need to store process id to somewhere in the context of process.
-         * I chose CCRs specific index, in this context to store id. */
-        p_CCR[1][0] = (reg_word) ID;
-        if (init)
-            storeID();
-    };
-
-    int getID() const {
-        return ID;
+    HandleThread(thread newThread){
+        myThread = newThread;
+    }
+    /*getters and setters*/
+    int getThreadID() const {
+        return myThread.threadID;
     }
 
-    State getState() const {
-        return p_state;
+    State getCurrentState() const {
+        return myThread.currentState;
     }
 
     char* getName(){
-        return name;
+        return myThread.name;
+    }
+    char* getFuncName(){
+        return myThread.funcName;
+    }
+    void setID(int newID){
+        myThread.threadID = newID;
+    }
+    void setName(char newName[41]){
+        strcpy(myThread.name,newName);
+    }
+    void setFuncName(char newName[41]){
+        strcpy(myThread.funcName,newName);
+    }
+    void setCurrentState(State state){
+        myThread.currentState = state;
+    }
+    thread getThread(){
+        return myThread;
+    }
+    void setThread(thread newThread){
+        myThread = newThread;
+    }
+    void setThreadSpecificData(){
+        myThread.t_stack_seg_h = stack_seg_h;
+        myThread.t_stack_seg_b = stack_seg_b;
+        myThread.t_stack_bot = stack_bot;
+        myThread.t_stack_seg = stack_seg;
+        myThread.t_nPC = nPC;
+        myThread.t_PC = PC;
+        memcpy(myThread.t_R, R, R_LENGTH * sizeof(reg_word));
+    }
+    void getThreadSpecificData(){
+        stack_seg_h = myThread.t_stack_seg_h;
+        stack_seg_b = myThread.t_stack_seg_b;
+        stack_bot = myThread.t_stack_bot;
+        stack_seg = myThread.t_stack_seg;
+        nPC = myThread.t_nPC;
+        PC = myThread.t_PC;
+        memcpy(R, myThread.t_R, R_LENGTH * sizeof(reg_word));
     }
 
-    void changeState(State state){
-        p_state = state;
-    }
-
-    int getParentID() const {
-        return parentID;
-    }
-
-    void addChild(int id){
-        children.push_back(id);
-    }
-
-    void removeChild(int id){
-        children.remove(id);
-    }
-
-    int getChild() const{
-        if (children.empty())
-            return -1;
-        else
-            return children.front();
-    }
-
-    bool isMyChild(int id) const {
-        for (auto &it: children)
-            if (it == id)
-                return true;
-        return false;
-    }
-
-    void setName(char *n){
-        strcpy(name, n);
-    }
-
-    void print() const {
-        write_output(console_out, "ID\t\t\t:\t%d\nParentID\t\t:\t%d\nProcessName\t\t:\t%s\n"
-                                  "PragramCounter\t\t:\t0x%x\nR[V0]\t\t\t:\t%d\n", ID, parentID, name, p_PC, p_R[REG_V0]);
-
-        if (!children.empty()){
-            write_output(console_out, "ChildList\t\t:\t[ ");
-            for (auto &it : children){
-                write_output(console_out, "%d ", it);
-            }
-            write_output(console_out, "]\n");
+    void printThreadInfo(){
+        write_output(console_out,"ThreadID:%d\nThread Name:%s\nThread Function Name:%s\nProgram Counter:0x%x\nStack Pointer address:%d\n",
+                     myThread.threadID,myThread.name,myThread.funcName,myThread.t_PC,myThread.threadID);
+        switch (myThread.currentState){
+            case State::Blocked:
+                write_output(console_out, "State:Blocked\n");
+                break;
+            case State::Running:
+                write_output(console_out, "State:Running\n");
+                break;
+            case State::Ready:
+                write_output(console_out, "State:Ready\n");
+                break;
+            default:
+                exit(EXIT_FAILURE);
         }
-        else
-            write_output(console_out, "ChildList\t\t:\t[ Empty ]\n");
-
-
-        switch (p_state){
-            case State::Blocked: write_output(console_out, "State\t\t\t:\tBlocked\n\n"); break;
-            case State::Running: write_output(console_out, "State\t\t\t:\tRunning\n\n"); break;
-            case State::Ready: write_output(console_out, "State\t\t\t:\tReady\n\n"); break;
-            default: exit(EXIT_FAILURE);
-        }
-
     }
-
-    void fromCPU(bool first=false){
-        memcpy(p_R, R, R_LENGTH * sizeof(reg_word));
-        p_HI = HI;
-        p_LO = LO;
-        p_PC = PC;
-        p_nPC = nPC;
-        memcpy(p_CCR, CCR, 128 * sizeof(reg_word));
-        memcpy(p_CPR, CPR, 128 * sizeof(reg_word));
-        p_text_modified = text_modified;
-        p_text_top = text_top;
-        p_data_modified = data_modified;
-        p_data_seg_h = data_seg_h;
-        p_data_seg_b = data_seg_b;
-        p_data_top = data_top;
-        p_gp_midpoint = gp_midpoint;
-        p_stack_seg_h = stack_seg_h;
-        p_stack_seg_b = stack_seg_b;
-        p_stack_bot = stack_bot;
-        p_k_text_seg = k_text_seg;
-        p_k_text_top = k_text_top;
-        p_k_data_seg_h = k_data_seg_h;
-        p_k_data_seg_b = k_data_seg_b;
-        p_k_data_top = k_data_top;
-        p_k_data_seg_b = (BYTE_TYPE *) k_data_seg;
-        p_k_data_seg_h = (short *) k_data_seg;
-
-        if (first && strcmp(name, "init") == 0 && !init){
-            memcpy(p_data_seg, data_seg, p_data_size);
-            memcpy(p_stack_seg, stack_seg, p_stack_size);
-            memcpy(p_k_data_seg, k_data_seg, p_k_data_size);
-        }
-        else {
-            p_data_seg = data_seg;
-            p_stack_seg = stack_seg;
-            p_k_data_seg = k_data_seg;
-        }
-        p_text_seg = text_seg;
-        p_k_text_seg = k_text_seg;
-
+    void giveResources(){
+        free(myThread.t_stack_seg);
     }
-    void toCPU(){
-        text_seg = p_text_seg;
-        k_text_seg = p_k_text_seg;
-        data_seg = p_data_seg;
-        stack_seg = p_stack_seg;
-        k_data_seg = p_k_data_seg;
-
-        memcpy(R, p_R, R_LENGTH * sizeof(reg_word));
-        HI = p_HI;
-        LO = p_LO;
-        PC = p_PC;
-        nPC = p_nPC;
-        memcpy(CCR, p_CCR, 128 * sizeof(reg_word));
-        memcpy(CPR, p_CPR, 128 * sizeof(reg_word));
-        text_modified = p_text_modified;
-        text_top = p_text_top;
-        data_modified = p_data_modified;
-        data_seg_h = p_data_seg_h;
-        data_seg_b = p_data_seg_b;
-        data_top = p_data_top;
-        gp_midpoint = p_gp_midpoint;
-        stack_seg_h = p_stack_seg_h;
-        stack_seg_b = p_stack_seg_b;
-        stack_bot = p_stack_bot;
-        k_text_seg = p_k_text_seg;
-        k_text_top = p_k_text_top;
-        k_data_seg_h = p_k_data_seg_h;
-        k_data_seg_b = p_k_data_seg_b;
-        k_data_top = p_k_data_top;
-        k_data_seg_b = (BYTE_TYPE *) p_k_data_seg;
-        k_data_seg_h = (short *) p_k_data_seg;
+    ~HandleThread(){
+        giveResources();
     }
-
-    void clear(){
-        free(p_data_seg);
-        free(p_stack_seg);
-        free(p_k_data_seg);
-        if ((strcmp(name, "init") != 0)){
-            free(p_text_seg);
-            free(p_k_text_seg);
-        }
-
-    }
-
-    /**
-     * once the process becomes dead, memory is freed.
-     * init is kept on the memory, because it's resources are allocated by the spim
-     * so freed is done by them. to be able to make spim terminate properly (without seg. fault)
-     * we shouldn't free init.
-     */
-    ~Process(){
-        if (ID != 0)
-            clear();
-    }
-
 private:
-    /* they are all named with p_ leading convention because,
-     * there exits a global alias taken without it.  */
-
-    /* identifier */
-    int ID;
-    int parentID;
-    char name[30];
-    bool init;
-    std::list<int> children;
-
-    /* state */
-    State p_state;
-
-    /* resource */
-    reg_word p_R[R_LENGTH]; // registers.
-    reg_word p_HI, p_LO;
-    mem_addr p_PC, p_nPC; // program counter
-    reg_word p_CCR[4][32], p_CPR[4][32];
-    instruction **p_text_seg;
-    bool p_text_modified;
-    mem_addr p_text_top;
-    mem_word *p_data_seg;
-    bool p_data_modified;
-    short *p_data_seg_h;
-    BYTE_TYPE *p_data_seg_b;
-    mem_addr p_data_top;
-    mem_addr p_gp_midpoint;
-    mem_word *p_stack_seg;
-    short *p_stack_seg_h;
-    BYTE_TYPE *p_stack_seg_b;
-    mem_addr p_stack_bot;
-    instruction **p_k_text_seg;
-    mem_addr p_k_text_top;
-    mem_word *p_k_data_seg;
-    short *p_k_data_seg_h;
-    BYTE_TYPE *p_k_data_seg_b;
-    mem_addr p_k_data_top;
-    int p_data_size;
-    int p_stack_size;
-    int p_k_data_size;
-    /* end of resource */
-
-    int storeID(){
-        int oldID = CCR[1][0];
-        CCR[1][0] = ID;
-        return oldID;
-    };
-
+    thread myThread;
 };
-
-
-class OS {
+class HandleInitProcess{
 public:
-    OS (): init(nullptr) {
-        srand(time(NULL));
-    };
+    HandleInitProcess(){
+        process.processID = 0;
+        setProcess();
+        tid = 1;
+        //createThread(true);
+        //doContextSwitch(1);
 
-    /**
-     * creates a process by cloning the caller's image. (as the posix's fork do.)
-     * sets the V0 of child to 0, sets the V0 of caller to childpid.
-     * @param name, the name of the process.
-     */
-    void fork(){
+    }
+    HandleInitProcess(InitProcess newProcess){
+        process = newProcess;
+    }
+    int getInitProcessID() const {
+        return process.processID;
+    }
+    void addNewThread(HandleThread *thread1){
+        threadTable.push_back(thread1);
+    }
+    void setProcess(){
+        process.i_data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
+        process.i_stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
+        process.i_k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
+        process.i_data_seg = (mem_word *) xmalloc( process.i_data_size);
+        process.i_stack_seg = (mem_word *) xmalloc( process.i_stack_size);
+        process.i_k_data_seg = (mem_word *) xmalloc( process.i_k_data_size);
+
+        process.i_data_seg = data_seg;
+        process.i_stack_seg = stack_seg;
+        process.i_k_data_seg = k_data_seg;
+
+        memcpy(process.i_R, R, R_LENGTH * sizeof(reg_word));
+        process.i_HI = HI;
+        process.i_LO = LO;
+        process.i_PC = PC;
+        process.i_nPC = nPC;
+        memcpy(process.i_CCR, CCR, 128 * sizeof(reg_word));
+        memcpy(process.i_CPR, CPR, 128 * sizeof(reg_word));
+        process.i_text_modified = text_modified;
+        process.i_text_top = text_top;
+        process.i_data_modified = data_modified;
+        process.i_data_seg_h = data_seg_h;
+        process.i_data_seg_b = data_seg_b;
+        process.i_data_top = data_top;
+        process.i_gi_midpoint = gp_midpoint;
+        process.i_stack_seg_h = stack_seg_h;
+        process.i_stack_seg_b = stack_seg_b;
+        process.i_stack_bot = stack_bot;
+        process.i_k_text_seg = k_text_seg;
+        process.i_k_text_top = k_text_top;
+        process.i_k_data_seg_h = k_data_seg_h;
+        process.i_k_data_seg_b = k_data_seg_b;
+        process.i_k_data_top = k_data_top;
+        process.i_k_data_seg_b = (BYTE_TYPE *) k_data_seg;
+        process.i_k_data_seg_h = (short *) k_data_seg;
+        //memcpy(process.i_data_seg, data_seg, process.i_data_size);
+        //memcpy(process.i_stack_seg, stack_seg, process.i_stack_size);
+        //memcpy(process.i_k_data_seg, k_data_seg, process.i_k_data_size);
+        process.i_text_seg = text_seg;
+        process.i_k_text_seg = k_text_seg;
+    }
+    void getProcess(){
+        text_seg = process.i_text_seg;
+        k_text_seg = process.i_k_text_seg;
+        data_seg = process.i_data_seg;
+        stack_seg = process.i_stack_seg;
+        k_data_seg = process.i_k_data_seg;
+
+        memcpy(R, process.i_R, R_LENGTH * sizeof(reg_word));
+        HI = process.i_HI;
+        LO = process.i_LO;
+        PC = process.i_PC;
+        nPC = process.i_nPC;
+        memcpy(CCR, process.i_CCR, 128 * sizeof(reg_word));
+        memcpy(CPR, process.i_CPR, 128 * sizeof(reg_word));
+        text_modified = process.i_text_modified;
+        text_top = process.i_text_top;
+        data_modified = process.i_data_modified;
+        data_seg_h = process.i_data_seg_h;
+        data_seg_b = process.i_data_seg_b;
+        data_top = process.i_data_top;
+        gp_midpoint = process.i_gi_midpoint;
+        stack_seg_h = process.i_stack_seg_h;
+        stack_seg_b = process.i_stack_seg_b;
+        stack_bot = process.i_stack_bot;
+        k_text_seg = process.i_k_text_seg;
+        k_text_top = process.i_k_text_top;
+        k_data_seg_h = process.i_k_data_seg_h;
+        k_data_seg_b = process.i_k_data_seg_b;
+        k_data_top = process.i_k_data_top;
+        k_data_seg_b = (BYTE_TYPE *) process.i_k_data_seg;
+        k_data_seg_h = (short *) process.i_k_data_seg;
+    }
+    void createThread(bool isMain){
+        auto *thread3 = new HandleThread();
+        thread3->setID(tid);
+        char tempName[41];
+        if (isMain)
+            sprintf(tempName,"main");
+        else
+            sprintf(tempName,"thread%d",tid);
+        thread3->setName(tempName);
+        thread3->setCurrentState(Ready);
         PC += BYTES_PER_WORD;
-        process_table[count+1] = new Process(current()->getName(), false, count+1);
+        thread3->setThreadSpecificData();
         PC -= BYTES_PER_WORD;
-        requestQueue.push(count+1); // process in the queue.
-        ++count;
-        setReturn(count, 0); // set return of child to 0
-        setReturn(current()->getID(), count); // set return of parent to child pid.
-        current()->addChild(count);
-    }
-
-    void setReturn(int id, int ret){
-        int prev_id = contextSwitch(id);
-        R[REG_V0] = ret;
-        contextSwitch(prev_id);
-    }
-
-
-    /**
-     * interrupt handler.
-     * implements robin round scheduling.
-     * interrupts the current process and makes the requested process goes in front,
-     * executes new process until being interrupted.
-     */
-    int schedule(bool cont=true){
-        if (requestQueue.empty()){
-            return 0;
+        if (isMain) {
+            thread3->setFuncName("main");
         }
-
-        write_output(console_out, "\n\n____________________________________________________________________\n\n");
-        write_output(console_out, "[***\t\tContext Scheduling Has Happened!\t\t***]\n");
-        write_output(console_out, "\t\t{\tProcess Table:\t\t}\n");
-        print();
-        write_output(console_out, ">Blocked:\t\tID %d\n", getCurrentID());
-        write_output(console_out, ">Changing State:\tID %d\n", requestQueue.front());
-        write_output(console_out, "\n[***\t\t{\t\tEND\t\t}\t\t***]\n");
-        write_output(console_out, "_____________________________________________________________________\n\n");
-
-
-
-        Process* p = process(requestQueue.front());
-        requestQueue.pop();
-        assert(p->getState() != Process::State::Running);
-        if(cont) // current process is not finished, so interrupt.
-            interrupt(getCurrentID());
-        p->toCPU();
-        p->changeState(Process::State::Running);
-        return p->getID();
+        else{
+            char filename[41];
+            strcpy(filename, (char*) mem_reference (R[REG_A0]));
+            thread3->setFuncName(filename);
+        }
+        threadTable.push_back(thread3);
+        readyQueue.push(thread3->getThreadID());
+        tid++;
+        printAllThreads();
+        R[REG_V0] = 0;
     }
+    //join is waiting a any thread
+    void joinThread(){
+        int result = -2;
+        int id = getWaiting();
+        if (id != curTid){
+            if (id != -1){
+                if (isFinished(id)){
+                    result = id;
+                    removeThread(id);
+                }
+                else{
+                    result = 0;
+                }
+            }
+            else{
+                result = -1; //no child is waiting
+            }
+        }
+        else{
+            if (threadTable.size() > 1){
+                result  = 0;
+            }
+            else{
+                result = -1;
+            }
+        }
+        R[REG_V0] = result;
+        doContextSwitch(1);
 
-    /**
-     * wait for a child process (of pid) with given id to change state.
-     * @id, if 0, waits for any child process, if >0, waits the child process with given id.
-     * @return cid, if the requested process is terminated.
-     * 0, if child process is running.
-     * -1, is error. (no cid exits)
-     */
-    void waitpid(int pid, int cid){
-        int status = 0;
-        if (cid == 0)
-            cid = process(pid)->getChild();
-        if (cid > 0){
-            if (isTerminated(pid, cid)){
-                status = cid;
-                process(pid)->removeChild(cid);
-            } // child's state changed to terminated.
-            else
-                status = 0;
-        }else
-            status = -1;
-        setReturn(pid, status);
     }
-
-    void execve(int id, char *name){
-        assert(id <= count); // id doesn't exit in the process table.
-        load(id, name);
-    }
-
-    void print()  {
-        for (auto & itr : process_table)
-            itr.second->print();
-    }
-
-    void kill(int id) {
-//        process(process(id)->getParentID())->removeChild(id);
-        process_table.erase(id);
-    }
-
-    void updateInit() {
-        if (!process_table[0]){
-            init = new Process("init", true, 0);
-            process_table[0] = init; // first item is init process in table.
+    int getWaiting(){
+        if (threadTable.empty())
+            return -1;
+        else{
+            threadTable.front()->getThreadID();
         }
     }
+    void doContextSwitch(int finished){
+        if (readyQueue.empty())
+            return;
+        HandleThread *next = getThread(readyQueue.front());
+        readyQueue.pop();
+        if (!finished)
+            handleInterrupt();
+        next->setCurrentState(Running);
+        curTid = next->getThreadID();
+        next->setThreadSpecificData();
+        write_output(console_out, "****Thread is Changing*****\n");
+        next->printThreadInfo();
+        if (next->getThreadID() != 0){
+            runAsm(next->getFuncName());
+        }
+    }
+    void handleInterrupt(){
+        HandleThread *curr = getThread(curTid);
+        curr->setCurrentState(Blocked);
+        curr->getThreadSpecificData();
+        readyQueue.push(curTid);
+    }
+    void printAllThreads(){
+        for (auto & thr : threadTable) {
+            thr->printThreadInfo();
+        }
+    }
+    bool isFinished(int threadID){
+        for (auto & thr : threadTable) {
+            if(thr->getThreadID() == threadID)
+                return false;
+        }
+        return true;
+    }
+    int getCurrent(){
+        for (auto & thr : threadTable) {
+            if(thr->getCurrentState() == Running)
+                return thr->getThreadID();
+        }
+        return -1;
+    }
+    HandleThread *getThread(int id){
+        for (auto & thr : threadTable) {
+            if(thr->getThreadID() == id)
+                return thr;
+        }
+    }
+    void removeThread(int id){
+        int i = 0;
+        int index = -1;
+        for (auto & thr : threadTable) {
+            if(thr->getThreadID() == id){
+                index = i;
+            }
+            i++;
+        }
+        if (index != -1){
+            threadTable.erase(threadTable.begin() + index);
+        }
+    }
+    void exitThread(int id){
+        removeThread(id);
+    }
+    void runAsm(char *filename){
+        if (access(filename, F_OK) != -1) {
 
-
-    /**
-     * loads the .asm file to the image of process with given id.
-     * @param id, process id.
-     * @param name, program name to image.
-     */
-    void load(int id, char *name){
-        if (access(name, F_OK) != -1) { // if file exist.
-            /* to load img, process must be moved to CPU */
-            process(id)->setName(name);
-            int prev_id = contextSwitch(id);
+            thread temp = getThread(curTid)->getThread();
+            write_output(console_out, "FİLEName::%s\n",filename);
+            temp.t_stack_seg = NULL;
+            write_output(console_out, "heree1\n");
+            getThread(curTid)->setThread(temp);
+            getProcess();
             text_seg = NULL;
             data_seg = NULL;
-            stack_seg = NULL;
             k_text_seg = NULL;
             k_data_seg = NULL;
+
             initialize_world(exception_file_name, false);
-            read_assembly_file(name);
+            read_assembly_file(filename);
+            write_output(console_out, "heree2\n");
+            thread temp2 = getThread(curTid)->getThread();
             PC = starting_address();
-            contextSwitch(prev_id);
+            setProcess();
+            temp2.t_PC = starting_address();
+            getThread(curTid)->setThread(temp2);
+            write_output(console_out, "heree3\n");
         }
         else
         {
-            write_output(console_out, "%s", name);
+            write_output(console_out, "%s is not found!!", filename);
         }
-
     }
-
-    int getCurrentID(){
-        return (int) CCR [1][0];
+    void clearAll(){
+        for (auto & thr : threadTable) {
+            thr->giveResources();
+        }
+        free(process.i_data_seg);
+        free(process.i_stack_seg);
+        free(process.i_k_data_seg);
     }
-
-    ~OS() {
-        for (auto & itr : process_table)
-            delete itr.second;
-
+    int getTID(){
+        return tid;
+    }
+    int getCurrTid(){
+        return curTid;
+    }
+    void createInit(){
+        process.processID = 0;
+        setProcess();
+    }
+    bool isEmpty(){
+        return (threadTable.size() == 0);
     }
 private:
-    Process *init; // first process created.
-    std::map<int, Process*> process_table;
-    std::queue<int> requestQueue; // for round robing scheduling process queue.
-    int count = 0;
-
-    /**
-     * returns the process with given id.
-     */
-    Process* process(int id){
-        return process_table[id];
-    }
-
-    /**
-     * get the current process on CPU.
-     */
-    Process* current(){
-        int id = getCurrentID();
-        assert(id <= count);
-        return process(id);
-    }
-
-    /**
-     * change current process on CPU, to process with given id.
-     * @return previous process's id.
-     */
-    int contextSwitch(int id) {
-        assert(id <= count);
-        Process *p = process(id); // will be switched to.
-        int old_id = current()->getID();
-        current()->fromCPU();
-        p->toCPU();
-        return old_id;
-    }
-
-    /**
-     * the requested process being interrupted.
-     */
-    void interrupt(int id){
-        assert(process(id)->getState() != Process::State::Blocked);
-        process(id)->changeState(Process::State::Blocked);
-        process(id)->fromCPU();
-
-        requestQueue.push(id); // added to queue for scheduling.
-    }
-
-    bool isTerminated(int pid, int cid){
-//        assert(pid == process(cid)->getParentID() && process(pid)->isMyChild(cid));
-        bool not_found = process_table.find(cid) == process_table.end();
-
-        return not_found && process(pid)->isMyChild(cid);
-    }
-
+    InitProcess process;
+    vector<HandleThread*> threadTable;
+    queue<int> readyQueue; //round robing scheduling thread queue.
+    int tid; //counter for unique tid
+    int curTid;
 };
 
-OS  os;
-
+HandleInitProcess kernel;
 /*You implement your handler here*/
 void SPIM_timerHandler()
 {
-   // Implement your handler..
-   os.schedule();
+    // Implement your handler..
+    kernel.doContextSwitch(0);
 
 }
+
+
 /* Decides which syscall to execute or simulate.  Returns zero upon
    exit syscall and non-zero to continue execution. */
 int
@@ -736,65 +682,47 @@ do_syscall ()
 #endif
 	break;
       }
-
-      /**
-       * this call creates and exact clone of the calling process. after the
-       * fork, the two processes, the parent and the child have the same memory image.
-       */
-        case FORK_SYSCALL: {
-            os.updateInit();
-            os.fork();
+        case CREATE_THREAD_SYSCALL: {
+            write_output(console_out, "neler oluyor burdaaaaaa!!!\n");
+            kernel.createThread(false);
+            //kernel.doContextSwitch(0);
             break;
         }
 
-        /**
-         * $a0 <= -1, wait for any child process.
-         * $a0 > 0 wait for the child process ID with given $a0.
-         */
-        case WAITPID_SYSCALL: {
-            os.updateInit();
-            os.waitpid(os.getCurrentID(), R[REG_A0]);
+        case JOIN_THREAD_SYSCALL: {
+            kernel.joinThread();
             break;
         }
 
-        /**
-         * this call changes the image of a given id and run a new program.
-         */
-        case EXECVE_SYSCALL: {
-            os.updateInit();
-            char name[30];
-            strcpy(name, (char*) mem_reference (R[REG_A0]));
-            os.execve(os.getCurrentID(), name);
-            break;
-        }
 
-        /**
-         * exit syscall for the os, kills the caller process (also erases it from p table) and
-         * schedules it again.
-         */
-        case PROCESS_EXIT_SYSCALL:{
+        case EXIT_THREAD_SYSCALL: {
             spim_return_value = 0;
 
-            if (os.getCurrentID() == 0) // if init, terminate os.
+            if (kernel.isEmpty()) // if no thread then terminate
                 return 0;
-            else // delete current process from process table.
-                os.kill(os.getCurrentID());
-
-            os.schedule(false);
-            PC -=4; // decrement PC to neutralize increment after this syscall.
+            else // delete current thread.
+                kernel.removeThread(kernel.getCurrent());
+            kernel.doContextSwitch(1);
+            PC -=4;
             break;
         }
 
-        /**
-         * generates a random number between 0<=x<=2.
-         * very specific usage for picking random program for kernel flavors.
-         */
-        case RANDOM_SYSCALL: {
-            R[REG_V0] = rand() % 3;
+
+        case LOCK_MUTEX_SYSCALL:{
+
+            break;
+        }
+        case UNLOCK_MUTEX_SYSCALL:{
+
+            break;
+        }
+        case LOAD_ASM_SYSCALL:{
+            kernel.doContextSwitch(0);
             break;
         }
 
-    default:
+
+        default:
       run_error ("Unknown system call: %d\n", R[REG_V0]);
       break;
     }

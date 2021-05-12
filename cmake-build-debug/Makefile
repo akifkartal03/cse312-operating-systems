@@ -1330,6 +1330,33 @@ HW2/spim/xspim/xspim.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/operating_system.dir/build.make CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.s
 .PHONY : HW2/spim/xspim/xspim.c.s
 
+HW2/test/syscall.o: HW2/test/syscall.cpp.o
+
+.PHONY : HW2/test/syscall.o
+
+# target to build an object file
+HW2/test/syscall.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operating_system.dir/build.make CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o
+.PHONY : HW2/test/syscall.cpp.o
+
+HW2/test/syscall.i: HW2/test/syscall.cpp.i
+
+.PHONY : HW2/test/syscall.i
+
+# target to preprocess a source file
+HW2/test/syscall.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operating_system.dir/build.make CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.i
+.PHONY : HW2/test/syscall.cpp.i
+
+HW2/test/syscall.s: HW2/test/syscall.cpp.s
+
+.PHONY : HW2/test/syscall.s
+
+# target to generate assembly for a file
+HW2/test/syscall.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operating_system.dir/build.make CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.s
+.PHONY : HW2/test/syscall.cpp.s
+
 Practices/hw1/bubble_sort.o: Practices/hw1/bubble_sort.c.o
 
 .PHONY : Practices/hw1/bubble_sort.o
@@ -1579,6 +1606,9 @@ help:
 	@echo "... HW2/spim/xspim/xspim.o"
 	@echo "... HW2/spim/xspim/xspim.i"
 	@echo "... HW2/spim/xspim/xspim.s"
+	@echo "... HW2/test/syscall.o"
+	@echo "... HW2/test/syscall.i"
+	@echo "... HW2/test/syscall.s"
 	@echo "... Practices/hw1/bubble_sort.o"
 	@echo "... Practices/hw1/bubble_sort.i"
 	@echo "... Practices/hw1/bubble_sort.s"

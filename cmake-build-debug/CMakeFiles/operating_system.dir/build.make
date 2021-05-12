@@ -219,22 +219,9 @@ CMakeFiles/operating_system.dir/HW2/spim/CPU/string-stream.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operating_system.dir/HW2/spim/CPU/string-stream.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/akif/Desktop/operating-system/HW2/spim/CPU/string-stream.cpp -o CMakeFiles/operating_system.dir/HW2/spim/CPU/string-stream.cpp.s
 
-CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o: CMakeFiles/operating_system.dir/flags.make
-CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o: ../HW2/spim/CPU/sym-tbl.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.cpp
-
-CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.cpp > CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.i
-
-CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.cpp -o CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.s
-
 CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.o: ../HW2/spim/CPU/syscall.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/CPU/syscall.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.i: cmake_force
@@ -245,9 +232,35 @@ CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/akif/Desktop/operating-system/HW2/spim/CPU/syscall.cpp -o CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.s
 
+CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o: CMakeFiles/operating_system.dir/flags.make
+CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o: ../HW2/spim/CPU/sym-tbl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.cpp
+
+CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.cpp > CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.i
+
+CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/akif/Desktop/operating-system/HW2/spim/CPU/sym-tbl.cpp -o CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.s
+
+CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o: CMakeFiles/operating_system.dir/flags.make
+CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o: ../HW2/test/syscall.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o -c /home/akif/Desktop/operating-system/HW2/test/syscall.cpp
+
+CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/akif/Desktop/operating-system/HW2/test/syscall.cpp > CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.i
+
+CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/akif/Desktop/operating-system/HW2/test/syscall.cpp -o CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.s
+
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.o: ../HW2/spim/PCSpim/BreakpointDlg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/BreakpointDlg.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.i: cmake_force
@@ -260,7 +273,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.o: ../HW2/spim/PCSpim/ConsoleWnd.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/ConsoleWnd.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.i: cmake_force
@@ -273,7 +286,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.o: ../HW2/spim/PCSpim/MainFrm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/MainFrm.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.i: cmake_force
@@ -286,7 +299,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MultiStepDlg.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MultiStepDlg.cpp.o: ../HW2/spim/PCSpim/MultiStepDlg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MultiStepDlg.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MultiStepDlg.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MultiStepDlg.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/MultiStepDlg.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MultiStepDlg.cpp.i: cmake_force
@@ -299,7 +312,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MultiStepDlg.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpim.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpim.cpp.o: ../HW2/spim/PCSpim/PCSpim.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpim.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpim.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpim.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpim.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpim.cpp.i: cmake_force
@@ -312,7 +325,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpim.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimDoc.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimDoc.cpp.o: ../HW2/spim/PCSpim/PCSpimDoc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimDoc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimDoc.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimDoc.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpimDoc.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimDoc.cpp.i: cmake_force
@@ -325,7 +338,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimDoc.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimView.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimView.cpp.o: ../HW2/spim/PCSpim/PCSpimView.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimView.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimView.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimView.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/PCSpimView.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimView.cpp.i: cmake_force
@@ -338,7 +351,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/PCSpimView.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/Regman.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/Regman.cpp.o: ../HW2/spim/PCSpim/Regman.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/Regman.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/Regman.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/Regman.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/Regman.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/Regman.cpp.i: cmake_force
@@ -351,7 +364,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/Regman.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/RunDlg.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/RunDlg.cpp.o: ../HW2/spim/PCSpim/RunDlg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/RunDlg.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/RunDlg.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/RunDlg.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/RunDlg.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/RunDlg.cpp.i: cmake_force
@@ -364,7 +377,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/RunDlg.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SettingsDlg.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SettingsDlg.cpp.o: ../HW2/spim/PCSpim/SettingsDlg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SettingsDlg.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SettingsDlg.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SettingsDlg.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/SettingsDlg.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SettingsDlg.cpp.i: cmake_force
@@ -377,7 +390,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SettingsDlg.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SetValueDlg.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SetValueDlg.cpp.o: ../HW2/spim/PCSpim/SetValueDlg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SetValueDlg.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SetValueDlg.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SetValueDlg.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/SetValueDlg.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SetValueDlg.cpp.i: cmake_force
@@ -390,7 +403,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SetValueDlg.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SpimSupport.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SpimSupport.cpp.o: ../HW2/spim/PCSpim/SpimSupport.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SpimSupport.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SpimSupport.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SpimSupport.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/SpimSupport.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SpimSupport.cpp.i: cmake_force
@@ -403,7 +416,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/SpimSupport.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/StdAfx.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/StdAfx.cpp.o: ../HW2/spim/PCSpim/StdAfx.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/StdAfx.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/StdAfx.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/StdAfx.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/StdAfx.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/StdAfx.cpp.i: cmake_force
@@ -416,7 +429,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/StdAfx.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/util.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/util.cpp.o: ../HW2/spim/PCSpim/util.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/util.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/PCSpim/util.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/PCSpim/util.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/PCSpim/util.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/PCSpim/util.cpp.i: cmake_force
@@ -429,7 +442,7 @@ CMakeFiles/operating_system.dir/HW2/spim/PCSpim/util.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/console.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/console.cpp.o: ../HW2/spim/QtSpim/console.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/console.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/console.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/console.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/console.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/console.cpp.i: cmake_force
@@ -442,7 +455,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/console.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/datawin.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/datawin.cpp.o: ../HW2/spim/QtSpim/datawin.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/datawin.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/datawin.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/datawin.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/datawin.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/datawin.cpp.i: cmake_force
@@ -455,7 +468,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/datawin.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/main.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/main.cpp.o: ../HW2/spim/QtSpim/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/main.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/main.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/main.cpp.i: cmake_force
@@ -468,7 +481,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/main.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/menu.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/menu.cpp.o: ../HW2/spim/QtSpim/menu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/menu.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/menu.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/menu.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/menu.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/menu.cpp.i: cmake_force
@@ -481,7 +494,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/menu.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/parser_yacc.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/parser_yacc.cpp.o: ../HW2/spim/QtSpim/parser_yacc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/parser_yacc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/parser_yacc.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/parser_yacc.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/parser_yacc.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/parser_yacc.cpp.i: cmake_force
@@ -494,7 +507,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/parser_yacc.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/regwin.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/regwin.cpp.o: ../HW2/spim/QtSpim/regwin.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/regwin.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/regwin.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/regwin.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/regwin.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/regwin.cpp.i: cmake_force
@@ -507,7 +520,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/regwin.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/scanner_lex.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/scanner_lex.cpp.o: ../HW2/spim/QtSpim/scanner_lex.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/scanner_lex.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/scanner_lex.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/scanner_lex.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/scanner_lex.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/scanner_lex.cpp.i: cmake_force
@@ -520,7 +533,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/scanner_lex.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spim_support.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spim_support.cpp.o: ../HW2/spim/QtSpim/spim_support.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spim_support.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spim_support.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spim_support.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/spim_support.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spim_support.cpp.i: cmake_force
@@ -533,7 +546,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spim_support.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spimview.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spimview.cpp.o: ../HW2/spim/QtSpim/spimview.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spimview.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spimview.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spimview.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/spimview.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spimview.cpp.i: cmake_force
@@ -546,7 +559,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/spimview.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/state.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/state.cpp.o: ../HW2/spim/QtSpim/state.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/state.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/state.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/state.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/state.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/state.cpp.i: cmake_force
@@ -559,7 +572,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/state.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/textwin.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/textwin.cpp.o: ../HW2/spim/QtSpim/textwin.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/textwin.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/QtSpim/textwin.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/QtSpim/textwin.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/QtSpim/textwin.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/QtSpim/textwin.cpp.i: cmake_force
@@ -572,7 +585,7 @@ CMakeFiles/operating_system.dir/HW2/spim/QtSpim/textwin.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.o: ../HW2/spim/spim/lex.yy.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/spim/lex.yy.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.i: cmake_force
@@ -585,7 +598,7 @@ CMakeFiles/operating_system.dir/HW2/spim/spim/lex.yy.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.o: ../HW2/spim/spim/parser_yacc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/spim/parser_yacc.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.i: cmake_force
@@ -598,7 +611,7 @@ CMakeFiles/operating_system.dir/HW2/spim/spim/parser_yacc.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.o: ../HW2/spim/spim/spim.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.o -c /home/akif/Desktop/operating-system/HW2/spim/spim/spim.cpp
 
 CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.i: cmake_force
@@ -611,7 +624,7 @@ CMakeFiles/operating_system.dir/HW2/spim/spim/spim.cpp.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.o: ../HW2/spim/xspim/buttons.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.o -c /home/akif/Desktop/operating-system/HW2/spim/xspim/buttons.c
 
 CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.i: cmake_force
@@ -624,7 +637,7 @@ CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.o: ../HW2/spim/xspim/windows.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.o -c /home/akif/Desktop/operating-system/HW2/spim/xspim/windows.c
 
 CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.i: cmake_force
@@ -637,7 +650,7 @@ CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.s: cmake_force
 
 CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.o: ../HW2/spim/xspim/xspim.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.o -c /home/akif/Desktop/operating-system/HW2/spim/xspim/xspim.c
 
 CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.i: cmake_force
@@ -650,7 +663,7 @@ CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.s: cmake_force
 
 CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.o: ../Practices/hw1/bubble_sort.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.o -c /home/akif/Desktop/operating-system/Practices/hw1/bubble_sort.c
 
 CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.i: cmake_force
@@ -663,7 +676,7 @@ CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.s: cmake_force
 
 CMakeFiles/operating_system.dir/Practices/hw1/factors.c.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/Practices/hw1/factors.c.o: ../Practices/hw1/factors.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/factors.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/factors.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/operating_system.dir/Practices/hw1/factors.c.o -c /home/akif/Desktop/operating-system/Practices/hw1/factors.c
 
 CMakeFiles/operating_system.dir/Practices/hw1/factors.c.i: cmake_force
@@ -676,7 +689,7 @@ CMakeFiles/operating_system.dir/Practices/hw1/factors.c.s: cmake_force
 
 CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.o: ../Practices/hw1/show_primes.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.o -c /home/akif/Desktop/operating-system/Practices/hw1/show_primes.c
 
 CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.i: cmake_force
@@ -689,7 +702,7 @@ CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.s: cmake_force
 
 CMakeFiles/operating_system.dir/Practices/hw1/test.c.o: CMakeFiles/operating_system.dir/flags.make
 CMakeFiles/operating_system.dir/Practices/hw1/test.c.o: ../Practices/hw1/test.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/test.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building C object CMakeFiles/operating_system.dir/Practices/hw1/test.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/operating_system.dir/Practices/hw1/test.c.o -c /home/akif/Desktop/operating-system/Practices/hw1/test.c
 
 CMakeFiles/operating_system.dir/Practices/hw1/test.c.i: cmake_force
@@ -713,8 +726,9 @@ operating_system_OBJECTS = \
 "CMakeFiles/operating_system.dir/HW2/spim/CPU/run.cpp.o" \
 "CMakeFiles/operating_system.dir/HW2/spim/CPU/spim-utils.cpp.o" \
 "CMakeFiles/operating_system.dir/HW2/spim/CPU/string-stream.cpp.o" \
-"CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o" \
 "CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.o" \
+"CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o" \
+"CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o" \
 "CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.o" \
 "CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.o" \
 "CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.o" \
@@ -765,8 +779,9 @@ operating_system: CMakeFiles/operating_system.dir/HW2/spim/CPU/mem.cpp.o
 operating_system: CMakeFiles/operating_system.dir/HW2/spim/CPU/run.cpp.o
 operating_system: CMakeFiles/operating_system.dir/HW2/spim/CPU/spim-utils.cpp.o
 operating_system: CMakeFiles/operating_system.dir/HW2/spim/CPU/string-stream.cpp.o
-operating_system: CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o
 operating_system: CMakeFiles/operating_system.dir/HW2/spim/CPU/syscall.cpp.o
+operating_system: CMakeFiles/operating_system.dir/HW2/spim/CPU/sym-tbl.cpp.o
+operating_system: CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o
 operating_system: CMakeFiles/operating_system.dir/HW2/spim/PCSpim/BreakpointDlg.cpp.o
 operating_system: CMakeFiles/operating_system.dir/HW2/spim/PCSpim/ConsoleWnd.cpp.o
 operating_system: CMakeFiles/operating_system.dir/HW2/spim/PCSpim/MainFrm.cpp.o
@@ -804,7 +819,7 @@ operating_system: CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.o
 operating_system: CMakeFiles/operating_system.dir/Practices/hw1/test.c.o
 operating_system: CMakeFiles/operating_system.dir/build.make
 operating_system: CMakeFiles/operating_system.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Linking CXX executable operating_system"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Linking CXX executable operating_system"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/operating_system.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

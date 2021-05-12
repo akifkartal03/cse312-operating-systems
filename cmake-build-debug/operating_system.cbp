@@ -357,6 +357,12 @@
 		<Unit filename="/home/akif/Desktop/operating-system/HW2/spim/xspim/xspim.h">
 			<Option target="operating_system"/>
 		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/test/syscall.cpp">
+			<Option target="operating_system"/>
+		</Unit>
+		<Unit filename="/home/akif/Desktop/operating-system/HW2/test/syscall.h">
+			<Option target="operating_system"/>
+		</Unit>
 		<Unit filename="/home/akif/Desktop/operating-system/Practices/hw1/bubble_sort.c">
 			<Option target="operating_system"/>
 		</Unit>
