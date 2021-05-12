@@ -37,8 +37,8 @@ add_executable(operating_system
         HW2/spim/CPU/string-stream.h
         HW2/spim/CPU/sym-tbl.cpp
         HW2/spim/CPU/sym-tbl.h
-        HW2/spim/CPU/syscall.cpp
-        HW2/spim/CPU/syscall.h
+        HW2/test/syscall.cpp
+        HW2/test/syscall.h
         HW2/spim/CPU/version.h
         HW2/spim/PCSpim/BreakpointDlg.cpp
         HW2/spim/PCSpim/BreakpointDlg.h

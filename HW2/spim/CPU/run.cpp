@@ -59,7 +59,7 @@
 #include "mem.h"
 #include "sym-tbl.h"
 #include "parser_yacc.h"
-#include "syscall.h"
+#include "../../test/syscall.h"
 #include "run.h"
 
 bool force_break = false;	/* For the execution env. to force an execution break */
