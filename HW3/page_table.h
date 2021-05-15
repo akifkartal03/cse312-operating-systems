@@ -34,8 +34,10 @@ PageTable::PageTable(unsigned int frmSize, unsigned int numVr, unsigned int numP
 :frameSize(frameSize),numVir(numVr),numPhys(numPh),pageSize(pow(2,frmSize)),numVirFrame(pow(2,numVr)),numPhysFrame(pow(2,numPh)){
     
     virtualSize = numVirFrame*pageSize;
-    virtualSize = numPhysFrame*pageSize;
+    physSize = numPhysFrame*pageSize;
     table = new Entry[numVirFrame];
+    /*for (int i = 0; i < numVirFrame; i++)
+        table[i].pageFrameNumber = 0;*/
 
 }
 int PageTable::getIndex(unsigned int address) const{
@@ -45,7 +47,7 @@ void PageTable::set(unsigned int address, int value){
     assert(address < virtualSize);
     int realIndex = getIndex(address);
     table[realIndex].pageFrameNumber = value;
-    if (value >= numPhys )
+    if (value >= numPhysFrame )
     {
         table[realIndex].present = false;
     }
@@ -60,16 +62,16 @@ int PageTable::get(unsigned int address){
     return table[getIndex(address)].pageFrameNumber;
 } 
 void PageTable::printInfo() const{
-    cout << "------------Page Table----------------" << endl;
+    cout << "--------------------------Page Table----------------------" << endl;
     for (int i = 0; i < numVirFrame; i++)
     {
         Entry temp = table[i];
-        cout << "[index: "  << i+1 << "|";
-        cout << "modified: "  << temp.modified << "|";
-        cout << "present: "  << temp.present << "|";
+        cout << "[index: "  << i << " | ";
+        cout << "modified: "  << temp.modified << " | ";
+        cout << "present: "  << temp.present << " | ";
         cout << "frame number: "  << temp.pageFrameNumber << "]" << endl;
     }
-    cout << "-------------------------------------" << endl;
+    cout << "----------------------------------------------------------" << endl;
     
 
 }
