@@ -256,6 +256,7 @@ public:
         process.processID = 0;
         setProcess();
         tid = 1;
+        curTid = 1;
         //createThread(true);
         //doContextSwitch(1);
 
@@ -408,16 +409,22 @@ public:
         }
     }
     void doContextSwitch(int finished){
+
         if (readyQueue.empty())
             return;
+
         HandleThread *next = getThread(readyQueue.front());
         readyQueue.pop();
+        if (next == NULL){
+            return;
+        }
+
         if (!finished)
             handleInterrupt();
         next->setCurrentState(Running);
         curTid = next->getThreadID();
         next->setThreadSpecificData();
-        write_output(console_out, "****Thread is Changing*****\n");
+
         next->printThreadInfo();
         if (next->getThreadID() != 0){
             runAsm(next->getFuncName());
@@ -453,6 +460,7 @@ public:
             if(thr->getThreadID() == id)
                 return thr;
         }
+        return NULL;
     }
     void removeThread(int id){
         int i = 0;
@@ -476,7 +484,6 @@ public:
             thread temp = getThread(curTid)->getThread();
             write_output(console_out, "FİLEName::%s\n",filename);
             temp.t_stack_seg = NULL;
-            write_output(console_out, "heree1\n");
             getThread(curTid)->setThread(temp);
             getProcess();
             text_seg = NULL;
@@ -486,13 +493,11 @@ public:
 
             initialize_world(exception_file_name, false);
             read_assembly_file(filename);
-            write_output(console_out, "heree2\n");
             thread temp2 = getThread(curTid)->getThread();
             PC = starting_address();
             setProcess();
             temp2.t_PC = starting_address();
             getThread(curTid)->setThread(temp2);
-            write_output(console_out, "heree3\n");
         }
         else
         {
