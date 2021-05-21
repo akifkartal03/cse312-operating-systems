@@ -43,7 +43,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/operating_system.dir/HW2/spim/xspim/buttons.c.o"
   "CMakeFiles/operating_system.dir/HW2/spim/xspim/windows.c.o"
   "CMakeFiles/operating_system.dir/HW2/spim/xspim/xspim.c.o"
-  "CMakeFiles/operating_system.dir/HW2/test/syscall.cpp.o"
   "CMakeFiles/operating_system.dir/Practices/hw1/bubble_sort.c.o"
   "CMakeFiles/operating_system.dir/Practices/hw1/factors.c.o"
   "CMakeFiles/operating_system.dir/Practices/hw1/show_primes.c.o"

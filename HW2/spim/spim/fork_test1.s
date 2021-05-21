@@ -14,6 +14,9 @@ main:
         li $v0, 23
         syscall
 
+        li $v0, 19
+        syscall
+
 
 exit1:  li $v0, 10
     	syscall

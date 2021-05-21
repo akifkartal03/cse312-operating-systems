@@ -36,13 +36,6 @@ void SPIM_timerHandler();
 int do_syscall ();
 void handle_exception ();
 
-/* Thread state */
-enum State {
-    Ready,
-    Running,
-    Blocked
-};
-
 #define PRINT_INT_SYSCALL	1
 #define PRINT_FLOAT_SYSCALL	2
 #define PRINT_DOUBLE_SYSCALL	3
@@ -66,9 +59,11 @@ enum State {
 #define CLOSE_SYSCALL		16
 
 #define EXIT2_SYSCALL		17
-#define CREATE_THREAD_SYSCALL  18
-#define JOIN_THREAD_SYSCALL    19
-#define EXIT_THREAD_SYSCALL    20
-#define LOCK_MUTEX_SYSCALL     21
-#define UNLOCK_MUTEX_SYSCALL   22
-#define LOAD_ASM_SYSCALL   23
+
+/* added syscall for the hw. */
+
+#define FORK_SYSCALL        18
+#define WAITPID_SYSCALL     19
+#define EXECVE_SYSCALL      20
+#define PROCESS_EXIT_SYSCALL 21
+#define RANDOM_SYSCALL  22

@@ -1,0 +1,106 @@
+cmake_minimum_required(VERSION 3.19)
+project(HW2)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories("HW2 For interrupt handling-20210509")
+include_directories(spim/CPU)
+include_directories(spim/PCSpim)
+include_directories(spim/QtSpim)
+include_directories(spim/spim)
+include_directories(spim/xspim)
+include_directories(test)
+include_directories(test2)
+
+add_executable(HW2
+        "HW2 For interrupt handling-20210509/run.cpp"
+        "HW2 For interrupt handling-20210509/syscall.cpp"
+        "HW2 For interrupt handling-20210509/syscall.h"
+        spim/CPU/data.cpp
+        spim/CPU/data.h
+        spim/CPU/display-utils.cpp
+        spim/CPU/dump_ops.cpp
+        spim/CPU/inst.cpp
+        spim/CPU/inst.h
+        spim/CPU/mem.cpp
+        spim/CPU/mem.h
+        spim/CPU/op.h
+        spim/CPU/parser.h
+        spim/CPU/reg.h
+        spim/CPU/run.cpp
+        spim/CPU/run.h
+        spim/CPU/scanner.h
+        spim/CPU/spim-syscall.h
+        spim/CPU/spim-utils.cpp
+        spim/CPU/spim-utils.h
+        spim/CPU/spim.h
+        spim/CPU/string-stream.cpp
+        spim/CPU/string-stream.h
+        spim/CPU/sym-tbl.cpp
+        spim/CPU/sym-tbl.h
+        spim/CPU/syscall.cpp
+        spim/CPU/syscall.h
+        spim/CPU/version.h
+        spim/PCSpim/BreakpointDlg.cpp
+        spim/PCSpim/BreakpointDlg.h
+        spim/PCSpim/ConsoleWnd.cpp
+        spim/PCSpim/ConsoleWnd.h
+        spim/PCSpim/MainFrm.cpp
+        spim/PCSpim/MainFrm.h
+        spim/PCSpim/MultiStepDlg.cpp
+        spim/PCSpim/MultiStepDlg.h
+        spim/PCSpim/PCSpim.cpp
+        spim/PCSpim/PCSpim.h
+        spim/PCSpim/PCSpimDoc.cpp
+        spim/PCSpim/PCSpimDoc.h
+        spim/PCSpim/PCSpimView.cpp
+        spim/PCSpim/PCSpimView.h
+        spim/PCSpim/Regman.cpp
+        spim/PCSpim/Regman.h
+        spim/PCSpim/resource.h
+        spim/PCSpim/RunDlg.cpp
+        spim/PCSpim/RunDlg.h
+        spim/PCSpim/SettingsDlg.cpp
+        spim/PCSpim/SettingsDlg.h
+        spim/PCSpim/SetValueDlg.cpp
+        spim/PCSpim/SetValueDlg.h
+        spim/PCSpim/SpimReg.h
+        spim/PCSpim/SpimSupport.cpp
+        spim/PCSpim/StdAfx.cpp
+        spim/PCSpim/StdAfx.h
+        spim/PCSpim/util.cpp
+        spim/PCSpim/util.h
+        spim/QtSpim/console.cpp
+        spim/QtSpim/console.h
+        spim/QtSpim/datatextedit.h
+        spim/QtSpim/datawin.cpp
+        spim/QtSpim/main.cpp
+        spim/QtSpim/menu.cpp
+        spim/QtSpim/parser_yacc.cpp
+        spim/QtSpim/parser_yacc.h
+        spim/QtSpim/regtextedit.h
+        spim/QtSpim/regwin.cpp
+        spim/QtSpim/scanner_lex.cpp
+        spim/QtSpim/settablecheckbox.h
+        spim/QtSpim/spim_settings.h
+        spim/QtSpim/spim_support.cpp
+        spim/QtSpim/spimview.cpp
+        spim/QtSpim/spimview.h
+        spim/QtSpim/state.cpp
+        spim/QtSpim/texttextedit.h
+        spim/QtSpim/textwin.cpp
+        spim/spim/lex.yy.cpp
+        spim/spim/parser_yacc.cpp
+        spim/spim/parser_yacc.h
+        spim/spim/spim.cpp
+        spim/xspim/buttons.c
+        spim/xspim/buttons.h
+        spim/xspim/windows.c
+        spim/xspim/windows.h
+        spim/xspim/xspim.c
+        spim/xspim/xspim.h
+        test/run.cpp
+        test/syscall.cpp
+        test/syscall.h
+        test2/syscall.cpp
+        test2/syscall.h)

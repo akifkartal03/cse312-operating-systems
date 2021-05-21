@@ -34,13 +34,11 @@ add_executable(operating_system
         HW2/spim/CPU/spim-utils.h
         HW2/spim/CPU/spim.h
         HW2/spim/CPU/string-stream.cpp
-        HW2/spim/CPU/syscall.cpp
         HW2/spim/CPU/syscall.h
         HW2/spim/CPU/string-stream.h
         HW2/spim/CPU/sym-tbl.cpp
         HW2/spim/CPU/sym-tbl.h
-        HW2/test/syscall.cpp
-        HW2/test/syscall.h
+
         HW2/spim/CPU/version.h
         HW2/spim/PCSpim/BreakpointDlg.cpp
         HW2/spim/PCSpim/BreakpointDlg.h
@@ -103,4 +101,5 @@ add_executable(operating_system
         Practices/hw1/bubble_sort.c
         Practices/hw1/factors.c
         Practices/hw1/show_primes.c
-        Practices/hw1/test.c)
+        Practices/hw1/test.c
+        HW2/spim/CPU/syscall.cpp)
