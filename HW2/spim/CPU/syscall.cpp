@@ -113,11 +113,7 @@ void windowsParameterHandlingControl(int flag )
 #define BYTES_TO_INST(N) (((N) + BYTES_PER_WORD - 1) / BYTES_PER_WORD * sizeof(instruction*))
 
 
-/**
- * process, process-table entry.
- * contains the fields necessary to store for a typical process.
- * fields are exported from 'mem.h' header.
-**/
+
 class Process {
 public:
 
@@ -128,7 +124,7 @@ public:
         Blocked,
     };
 
-    // TODO: don't forget to return the $v0=0 to child process and $v0=child_pid to parent process.
+
 
     Process() = delete;
     Process(Process&) = delete;
