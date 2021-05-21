@@ -71,11 +71,11 @@ The subdirectories can be divided into two categories.\
 \
     PCSpim -- Microsoft Windows front end for Spim. [Obsolete]\
 \
-    QtSpim -- Preferred front end for Spim that works on Microsoft Windows, Linux, and Mac OS X.\
+    QtSpim -- Preferred front end for Spim that works on Microsoft Windows, Linux, and Mac HandleInitProcess X.\
 \
     spim -- Text-only (terminal or console) front end for Spim. Works on all platforms.\
 \
-    xspim -- X-Windows front end for Spim. Works on Linux and Mac OS X. (Built on a very old X Windows library that is no longer supported by the Mac.) [Obsolete]\
+    xspim -- X-Windows front end for Spim. Works on Linux and Mac HandleInitProcess X. (Built on a very old X Windows library that is no longer supported by the Mac.) [Obsolete]\
 \
 \
 
@@ -84,7 +84,7 @@ The subdirectories can be divided into two categories.\
 \f1\b0 \
 It is generally not necessary to build QtSpim as the Spim website contains an installable version for most systems.\
 \
-Install the bison parser generator and flex lexer generator, either using Cygwin on Windows or native version on Linux and OS X.\
+Install the bison parser generator and flex lexer generator, either using Cygwin on Windows or native version on Linux and HandleInitProcess X.\
 \
 1. Download the free (open source) version of Qt Creator from {\field{\*\fldinst{HYPERLINK "http://qt.io"}}{\fldrslt http://qt.io}}. This is a large download that might take a while.\
    I have been using version 5.5, though any of the version 5.x should work fine. The 4.x releases will cause problems because of incompatible changes to the libraries.\
@@ -99,9 +99,9 @@ Install the bison parser generator and flex lexer generator, either using Cygwin
 \
         If you are porting to a new system and see a large number of compiler errors in QtCreator, changes are good that you need to change QtSpim.pro to define the compiler flag that says "treat all files, including .c files, as C++ code. This flag is "-X C++" for gcc and "-TP" for the Microsoft compiler.\
 \
-4. Packaging QtSpim for distribution is a complex, OS-specific operation. The Setup directory contains the files for all three platforms. \
+4. Packaging QtSpim for distribution is a complex, HandleInitProcess-specific operation. The Setup directory contains the files for all three platforms. \
 \
-	On OS X, you need to run the script bin/release-osx and use the free Packages tool ({\field{\*\fldinst{HYPERLINK "http://s.sudre.free.fr/Software/Packages/about.html"}}{\fldrslt http://s.sudre.free.fr/Software/Packages/about.html}}).\
+	On HandleInitProcess X, you need to run the script bin/release-osx and use the free Packages tool ({\field{\*\fldinst{HYPERLINK "http://s.sudre.free.fr/Software/Packages/about.html"}}{\fldrslt http://s.sudre.free.fr/Software/Packages/about.html}}).\
 \
 	On Windows,you need a copy of Visual Studio and the free version of WiX.\
 \

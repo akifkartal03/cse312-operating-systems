@@ -190,7 +190,7 @@ increment_data_pc (int delta)
 }
 
 
-/* Process a .extern NAME SIZE directive. */
+/* InitProcess a .extern NAME SIZE directive. */
 
 void
 extern_directive (char *name, int size)
@@ -209,7 +209,7 @@ extern_directive (char *name, int size)
 }
 
 
-/* Process a .lcomm NAME SIZE directive. */
+/* InitProcess a .lcomm NAME SIZE directive. */
 
 void
 lcomm_directive (char *name, int size)
@@ -236,7 +236,7 @@ lcomm_directive (char *name, int size)
 }
 
 
-/* Process a .ascii STRING or .asciiz STRING directive. */
+/* InitProcess a .ascii STRING or .asciiz STRING directive. */
 
 void
 store_string (char *string, int length, bool null_terminate)
@@ -251,7 +251,7 @@ store_string (char *string, int length, bool null_terminate)
 }
 
 
-/* Process a .byte EXPR directive. */
+/* InitProcess a .byte EXPR directive. */
 
 void
 store_byte (int value)
@@ -261,7 +261,7 @@ store_byte (int value)
 }
 
 
-/* Process a .half EXPR directive. */
+/* InitProcess a .half EXPR directive. */
 
 void
 store_half (int value)
@@ -284,7 +284,7 @@ store_half (int value)
 }
 
 
-/* Process a .word EXPR directive. */
+/* InitProcess a .word EXPR directive. */
 
 void
 store_word (int value)
@@ -307,7 +307,7 @@ store_word (int value)
 }
 
 
-/* Process a .double EXPR directive. */
+/* InitProcess a .double EXPR directive. */
 
 void
 store_double (double *value)
@@ -327,7 +327,7 @@ store_double (double *value)
 }
 
 
-/* Process a .float EXPR directive. */
+/* InitProcess a .float EXPR directive. */
 
 void
 store_float (double *value)

@@ -4,7 +4,7 @@ This directory contains compiled, installable copies of various flavors of Spim:
 
     QtSpim_*_Windows.zip -- Windows (32 or 64 bit)
 
-    QtSpim_*_mac.dmg     -- Mac OS X
+    QtSpim_*_mac.dmg     -- Mac HandleInitProcess X
 
     qtspim_*_linux64.deb -- 64 bit Linux debian package
 

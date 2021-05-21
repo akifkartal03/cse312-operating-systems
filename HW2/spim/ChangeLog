@@ -179,7 +179,7 @@
         Version 9.1.17
 
         * summary.rtf:
-        Update installation instructions for latest OS X.
+        Update installation instructions for latest HandleInitProcess X.
 
         * QtSpim/QtSpim.pro, menu.cpp [https://sourceforge.net/p/spimsimulator/bugs/71/]:
         Fix creation of qtspim.qhc file to eliminate embedded paths.
@@ -332,7 +332,7 @@
         Version 9.1.12
 
         * QtSpim/menu.cpp (help_ViewHelp):
-        Further adjustment of file positions on Mac OS.
+        Further adjustment of file positions on Mac HandleInitProcess.
 
 2013-12-13  Larus  <larus@Jim-MacBook-Air.local>
 
@@ -340,12 +340,12 @@
         Fix naming issues in QtSpim help. Open at top of page.
 
         * QtSpim/menu.cpp (help_ViewHelp):
-        Properly launch Qt Assistant on Mac OS.
+        Properly launch Qt Assistant on Mac HandleInitProcess.
 
 2013-12-11  Larus  <larus@icdhcp-1-098.epfl.ch>
 
         * QtSpim/QtSpim.pro:
-        Set flags for clang on Mac OS.
+        Set flags for clang on Mac HandleInitProcess.
 
         * CPU/run.c (run_spim):
         Eliminate nop assignments caught by clang.
@@ -697,7 +697,7 @@
 2011-01-18    <Jim@LS-RED>
 
         * Documentation/SourceForge/readme.txt [Sergio Barrachina Mir <barrachi@icc.uji.es>]:
-        Installed Mac OS X version of QtSpim.
+        Installed Mac HandleInitProcess X version of QtSpim.
 
 2011-01-09    <Jim@X64PC>
 
@@ -1117,7 +1117,7 @@
 
         * spim/spim.c (console_to_program) [Peter Fröhlich phf@cs.ucr.edu]:
         Eliminated non-POSIX flags IUCLC and IXANY to facilitate port to
-        Mac OS X.
+        Mac HandleInitProcess X.
 
         * spim/spim.c (console_to_program) [Deborah Pickett
         debbiep@csse.monash.edu.au]:
@@ -1226,7 +1226,7 @@
 
         * spim.c, Configure:
         Eliminated dependence on obsolete termio.h in favor of posix
-        termios.h since Mac OS X doesn't have termio.h any more.
+        termios.h since Mac HandleInitProcess X doesn't have termio.h any more.
 
 2004-09-21    <Jim@LS1>
 

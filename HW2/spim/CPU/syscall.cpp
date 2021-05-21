@@ -113,8 +113,153 @@ void windowsParameterHandlingControl(int flag )
 #define BYTES_TO_INST(N) (((N) + BYTES_PER_WORD - 1) / BYTES_PER_WORD * sizeof(instruction*))
 
 
+typedef struct Thread{
+    /*thread specific info*/
+    //program counter
+    //register
+    //stack
+    //state
+    int threadID;
+    char name[41];
+    char funcName[41];
+    State currentState;
+    mem_addr t_PC, t_nPC; // program counter
+    reg_word t_R[R_LENGTH]; // registers.
+    /*thread stack*/
+    int t_stack_size;
+    mem_word *t_stack_seg;
+    short *t_stack_seg_h;
+    BYTE_TYPE *t_stack_seg_b;
+    mem_addr t_stack_bot;
 
-class Process {
+}thread;
+
+typedef struct InitProcessData{
+    /*Initial Process Info*/
+    int processID;// will be 0
+
+    //process specific data
+    reg_word i_R[R_LENGTH];
+    reg_word i_HI, i_LO;
+    mem_addr i_PC, i_nPC;
+    reg_word i_CCR[4][32], i_CPR[4][32];
+    instruction **i_text_seg;
+    bool i_text_modified;
+    mem_addr i_text_top;
+    mem_word *i_data_seg;
+    bool i_data_modified;
+    short *i_data_seg_h;
+    BYTE_TYPE *i_data_seg_b;
+    mem_addr i_data_top;
+    mem_addr i_gi_midpoint;
+    mem_word *i_stack_seg;
+    short *i_stack_seg_h;
+    BYTE_TYPE *i_stack_seg_b;
+    mem_addr i_stack_bot;
+    instruction **i_k_text_seg;
+    mem_addr i_k_text_top;
+    mem_word *i_k_data_seg;
+    short *i_k_data_seg_h;
+    BYTE_TYPE *i_k_data_seg_b;
+    mem_addr i_k_data_top;
+    int i_data_size;
+    int i_stack_size;
+    int i_k_data_size;
+
+}initProcess;
+class HandleThread{
+public:
+    HandleThread(char *name, int id){
+        myThread.threadID = id;
+        strcpy(myThread.name, name);
+        myThread.currentState = State::Ready;
+        setThreadSpecificData(); // copy the img from current context.
+    };
+    HandleThread(thread newThread){
+        myThread = newThread;
+    }
+    /*getters and setters*/
+    int getThreadID() const {
+        return myThread.threadID;
+    }
+
+    State getCurrentState() const {
+        return myThread.currentState;
+    }
+
+    char* getName(){
+        return myThread.name;
+    }
+    char* getFuncName(){
+        return myThread.funcName;
+    }
+    int getID(){
+        return myThread.threadID;
+    }
+    void setID(int newID){
+        myThread.threadID = newID;
+    }
+    void setName(char newName[41]){
+        strcpy(myThread.name,newName);
+    }
+    void setFuncName(char newName[41]){
+        strcpy(myThread.funcName,newName);
+    }
+    void setCurrentState(State state){
+        myThread.currentState = state;
+    }
+    thread getThread(){
+        return myThread;
+    }
+    void setThread(thread newThread){
+        myThread = newThread;
+    }
+    void setThreadSpecificData(){
+        myThread.t_stack_seg_h = stack_seg_h;
+        myThread.t_stack_seg_b = stack_seg_b;
+        myThread.t_stack_bot = stack_bot;
+        myThread.t_stack_seg = stack_seg;
+        myThread.t_nPC = nPC;
+        myThread.t_PC = PC;
+        memcpy(myThread.t_R, R, R_LENGTH * sizeof(reg_word));
+    }
+    void getThreadSpecificData(){
+        stack_seg_h = myThread.t_stack_seg_h;
+        stack_seg_b = myThread.t_stack_seg_b;
+        stack_bot = myThread.t_stack_bot;
+        stack_seg = myThread.t_stack_seg;
+        nPC = myThread.t_nPC;
+        PC = myThread.t_PC;
+        memcpy(R, myThread.t_R, R_LENGTH * sizeof(reg_word));
+    }
+
+    void printThreadInfo(){
+        write_output(console_out,"ThreadID:%d\nThread Name:%s\nThread Function Name:%s\nProgram Counter:0x%x\nStack Pointer address:%d\n",
+                     myThread.threadID,myThread.name,myThread.funcName,myThread.t_PC,myThread.threadID);
+        switch (myThread.currentState){
+            case State::Blocked:
+                write_output(console_out, "State:Blocked\n");
+                break;
+            case State::Running:
+                write_output(console_out, "State:Running\n");
+                break;
+            case State::Ready:
+                write_output(console_out, "State:Ready\n");
+                break;
+            default:
+                exit(EXIT_FAILURE);
+        }
+    }
+    void giveResources(){
+        free(myThread.t_stack_seg);
+    }
+    ~HandleThread(){
+        //giveResources();
+    }
+private:
+    thread myThread;
+};
+class InitProcess {
 public:
 
    /* process states */
@@ -126,40 +271,24 @@ public:
 
 
 
-    Process() = delete;
-    Process(Process&) = delete;
+    InitProcess() = delete;
+    InitProcess(InitProcess&) = delete;
 
     /**
      * initialize a process image, by copying the image of given current caller.
      * fork design implemented here for creating the process, because we won't
      * need any other way after all.
      */
-    Process(char *name, bool init, int id){
-        p_data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
-        p_stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
-        p_k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
-
-        /* start of image cloning  */
-
-        if (!init) { // create segment if not init.
-            p_data_seg = (mem_word *) xmalloc(p_data_size);
-            p_stack_seg = (mem_word *) xmalloc(p_stack_size);
-            p_k_data_seg = (mem_word *) xmalloc(p_k_data_size);
-        }
-
+    InitProcess(char *name, bool init, int id){
 
         ID = id;
         parentID = CCR[1][0];
         strcpy(this->name, name);
         this->init = init;
         p_state = State::Ready;
-        fromCPU(true); // copy the img from current context.
+        setProcess(); // copy the img from current context.
 
-        /* end of image cloning. */
-
-        /* we need to store process id to somewhere in the context of process.
-         * I chose CCRs specific index, in this context to store id. */
-        p_CCR[1][0] = (reg_word) ID;
+        process.i_CCR[1][0] = (reg_word) ID;
         if (init)
             storeID();
     };
@@ -212,7 +341,7 @@ public:
 
     void print() const {
         write_output(console_out, "ID\t\t\t:\t%d\nParentID\t\t:\t%d\nProcessName\t\t:\t%s\n"
-                                  "PragramCounter\t\t:\t0x%x\nR[V0]\t\t\t:\t%d\n", ID, parentID, name, p_PC, p_R[REG_V0]);
+                                  "PragramCounter\t\t:\t0x%x\nR[V0]\t\t\t:\t%d\n", ID, parentID, name, process.i_PC, process.i_R[REG_V0]);
 
         if (!children.empty()){
             write_output(console_out, "ChildList\t\t:\t[ ");
@@ -234,87 +363,85 @@ public:
 
     }
 
-    void fromCPU(bool first=false){
-        memcpy(p_R, R, R_LENGTH * sizeof(reg_word));
-        p_HI = HI;
-        p_LO = LO;
-        p_PC = PC;
-        p_nPC = nPC;
-        memcpy(p_CCR, CCR, 128 * sizeof(reg_word));
-        memcpy(p_CPR, CPR, 128 * sizeof(reg_word));
-        p_text_modified = text_modified;
-        p_text_top = text_top;
-        p_data_modified = data_modified;
-        p_data_seg_h = data_seg_h;
-        p_data_seg_b = data_seg_b;
-        p_data_top = data_top;
-        p_gp_midpoint = gp_midpoint;
-        p_stack_seg_h = stack_seg_h;
-        p_stack_seg_b = stack_seg_b;
-        p_stack_bot = stack_bot;
-        p_k_text_seg = k_text_seg;
-        p_k_text_top = k_text_top;
-        p_k_data_seg_h = k_data_seg_h;
-        p_k_data_seg_b = k_data_seg_b;
-        p_k_data_top = k_data_top;
-        p_k_data_seg_b = (BYTE_TYPE *) k_data_seg;
-        p_k_data_seg_h = (short *) k_data_seg;
+    void setProcess(){
+        process.i_data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
+        process.i_stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
+        process.i_k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
+        process.i_data_seg = (mem_word *) xmalloc( process.i_data_size);
+        process.i_stack_seg = (mem_word *) xmalloc( process.i_stack_size);
+        process.i_k_data_seg = (mem_word *) xmalloc( process.i_k_data_size);
 
-        if (first && strcmp(name, "init") == 0 && !init){
-            memcpy(p_data_seg, data_seg, p_data_size);
-            memcpy(p_stack_seg, stack_seg, p_stack_size);
-            memcpy(p_k_data_seg, k_data_seg, p_k_data_size);
-        }
-        else {
-            p_data_seg = data_seg;
-            p_stack_seg = stack_seg;
-            p_k_data_seg = k_data_seg;
-        }
-        p_text_seg = text_seg;
-        p_k_text_seg = k_text_seg;
+        process.i_data_seg = data_seg;
+        process.i_stack_seg = stack_seg;
+        process.i_k_data_seg = k_data_seg;
 
+        memcpy(process.i_R, R, R_LENGTH * sizeof(reg_word));
+        process.i_HI = HI;
+        process.i_LO = LO;
+        process.i_PC = PC;
+        process.i_nPC = nPC;
+        memcpy(process.i_CCR, CCR, 128 * sizeof(reg_word));
+        memcpy(process.i_CPR, CPR, 128 * sizeof(reg_word));
+        process.i_text_modified = text_modified;
+        process.i_text_top = text_top;
+        process.i_data_modified = data_modified;
+        process.i_data_seg_h = data_seg_h;
+        process.i_data_seg_b = data_seg_b;
+        process.i_data_top = data_top;
+        process.i_gi_midpoint = gp_midpoint;
+        process.i_stack_seg_h = stack_seg_h;
+        process.i_stack_seg_b = stack_seg_b;
+        process.i_stack_bot = stack_bot;
+        process.i_k_text_seg = k_text_seg;
+        process.i_k_text_top = k_text_top;
+        process.i_k_data_seg_h = k_data_seg_h;
+        process.i_k_data_seg_b = k_data_seg_b;
+        process.i_k_data_top = k_data_top;
+        process.i_k_data_seg_b = (BYTE_TYPE *) k_data_seg;
+        process.i_k_data_seg_h = (short *) k_data_seg;
+        //memcpy(process.i_data_seg, data_seg, process.i_data_size);
+        //memcpy(process.i_stack_seg, stack_seg, process.i_stack_size);
+        //memcpy(process.i_k_data_seg, k_data_seg, process.i_k_data_size);
+        process.i_text_seg = text_seg;
+        process.i_k_text_seg = k_text_seg;
     }
-    void toCPU(){
-        text_seg = p_text_seg;
-        k_text_seg = p_k_text_seg;
-        data_seg = p_data_seg;
-        stack_seg = p_stack_seg;
-        k_data_seg = p_k_data_seg;
+    void getProcess(){
+        text_seg = process.i_text_seg;
+        k_text_seg = process.i_k_text_seg;
+        data_seg = process.i_data_seg;
+        stack_seg = process.i_stack_seg;
+        k_data_seg = process.i_k_data_seg;
 
-        memcpy(R, p_R, R_LENGTH * sizeof(reg_word));
-        HI = p_HI;
-        LO = p_LO;
-        PC = p_PC;
-        nPC = p_nPC;
-        memcpy(CCR, p_CCR, 128 * sizeof(reg_word));
-        memcpy(CPR, p_CPR, 128 * sizeof(reg_word));
-        text_modified = p_text_modified;
-        text_top = p_text_top;
-        data_modified = p_data_modified;
-        data_seg_h = p_data_seg_h;
-        data_seg_b = p_data_seg_b;
-        data_top = p_data_top;
-        gp_midpoint = p_gp_midpoint;
-        stack_seg_h = p_stack_seg_h;
-        stack_seg_b = p_stack_seg_b;
-        stack_bot = p_stack_bot;
-        k_text_seg = p_k_text_seg;
-        k_text_top = p_k_text_top;
-        k_data_seg_h = p_k_data_seg_h;
-        k_data_seg_b = p_k_data_seg_b;
-        k_data_top = p_k_data_top;
-        k_data_seg_b = (BYTE_TYPE *) p_k_data_seg;
-        k_data_seg_h = (short *) p_k_data_seg;
+        memcpy(R, process.i_R, R_LENGTH * sizeof(reg_word));
+        HI = process.i_HI;
+        LO = process.i_LO;
+        PC = process.i_PC;
+        nPC = process.i_nPC;
+        memcpy(CCR, process.i_CCR, 128 * sizeof(reg_word));
+        memcpy(CPR, process.i_CPR, 128 * sizeof(reg_word));
+        text_modified = process.i_text_modified;
+        text_top = process.i_text_top;
+        data_modified = process.i_data_modified;
+        data_seg_h = process.i_data_seg_h;
+        data_seg_b = process.i_data_seg_b;
+        data_top = process.i_data_top;
+        gp_midpoint = process.i_gi_midpoint;
+        stack_seg_h = process.i_stack_seg_h;
+        stack_seg_b = process.i_stack_seg_b;
+        stack_bot = process.i_stack_bot;
+        k_text_seg = process.i_k_text_seg;
+        k_text_top = process.i_k_text_top;
+        k_data_seg_h = process.i_k_data_seg_h;
+        k_data_seg_b = process.i_k_data_seg_b;
+        k_data_top = process.i_k_data_top;
+        k_data_seg_b = (BYTE_TYPE *) process.i_k_data_seg;
+        k_data_seg_h = (short *) process.i_k_data_seg;
     }
 
     void clear(){
-        free(p_data_seg);
-        free(p_stack_seg);
-        free(p_k_data_seg);
-        if ((strcmp(name, "init") != 0)){
-            free(p_text_seg);
-            free(p_k_text_seg);
-        }
+        free(process.i_data_seg);
+        free(process.i_stack_seg);
+        free(process.i_k_data_seg);
 
     }
 
@@ -324,16 +451,13 @@ public:
      * so freed is done by them. to be able to make spim terminate properly (without seg. fault)
      * we shouldn't free init.
      */
-    ~Process(){
+    ~InitProcess(){
         if (ID != 0)
             clear();
     }
 
 private:
-    /* they are all named with p_ leading convention because,
-     * there exits a global alias taken without it.  */
-
-    /* identifier */
+    InitProcessData process;
     int ID;
     int parentID;
     char name[30];
@@ -342,35 +466,6 @@ private:
 
     /* state */
     State p_state;
-
-    /* resource */
-    reg_word p_R[R_LENGTH]; // registers.
-    reg_word p_HI, p_LO;
-    mem_addr p_PC, p_nPC; // program counter
-    reg_word p_CCR[4][32], p_CPR[4][32];
-    instruction **p_text_seg;
-    bool p_text_modified;
-    mem_addr p_text_top;
-    mem_word *p_data_seg;
-    bool p_data_modified;
-    short *p_data_seg_h;
-    BYTE_TYPE *p_data_seg_b;
-    mem_addr p_data_top;
-    mem_addr p_gp_midpoint;
-    mem_word *p_stack_seg;
-    short *p_stack_seg_h;
-    BYTE_TYPE *p_stack_seg_b;
-    mem_addr p_stack_bot;
-    instruction **p_k_text_seg;
-    mem_addr p_k_text_top;
-    mem_word *p_k_data_seg;
-    short *p_k_data_seg_h;
-    BYTE_TYPE *p_k_data_seg_b;
-    mem_addr p_k_data_top;
-    int p_data_size;
-    int p_stack_size;
-    int p_k_data_size;
-    /* end of resource */
 
     int storeID(){
         int oldID = CCR[1][0];
@@ -381,9 +476,9 @@ private:
 };
 
 
-class OS {
+class HandleInitProcess {
 public:
-    OS (): init(nullptr) {
+    HandleInitProcess (): init(nullptr) {
         srand(time(NULL));
     };
 
@@ -394,13 +489,13 @@ public:
      */
     void fork(){
         PC += BYTES_PER_WORD;
-        process_table[count+1] = new Process(current()->getName(), false, count+1);
+        process_table[count+1] = new HandleThread(current()->getName(), count + 1);
         PC -= BYTES_PER_WORD;
         requestQueue.push(count+1); // process in the queue.
         ++count;
         setReturn(count, 0); // set return of child to 0
         setReturn(current()->getID(), count); // set return of parent to child pid.
-        current()->addChild(count);
+        //current()->addChild(count);
     }
 
     void setReturn(int id, int ret){
@@ -432,13 +527,13 @@ public:
 
 
 
-        Process* p = process(requestQueue.front());
+        HandleThread* p = process(requestQueue.front());
         requestQueue.pop();
-        assert(p->getState() != Process::State::Running);
+        assert(p->getCurrentState() != Running);
         if(cont) // current process is not finished, so interrupt.
             interrupt(getCurrentID());
-        p->toCPU();
-        p->changeState(Process::State::Running);
+        p->getThreadSpecificData();
+        p->setCurrentState(Running);
         return p->getID();
     }
 
@@ -452,11 +547,11 @@ public:
     void waitpid(int pid, int cid){
         int status = 0;
         if (cid == 0)
-            cid = process(pid)->getChild();
+            cid = process(pid)->getID();
         if (cid > 0){
             if (isTerminated(pid, cid)){
                 status = cid;
-                process(pid)->removeChild(cid);
+                removeThr(cid);
             } // child's state changed to terminated.
             else
                 status = 0;
@@ -472,21 +567,23 @@ public:
 
     void print()  {
         for (auto & itr : process_table)
-            itr.second->print();
+            itr.second->printThreadInfo();
     }
 
     void kill(int id) {
 //        process(process(id)->getParentID())->removeChild(id);
         process_table.erase(id);
+        finished.push_back(id);
     }
 
     void updateInit() {
         if (!process_table[0]){
-            init = new Process("init", true, 0);
-            process_table[0] = init; // first item is init process in table.
+            process_table[0] = new HandleThread("init",  0);
         }
     }
-
+    void removeThr(int id){
+        finished.remove(id);
+    }
 
     /**
      * loads the .asm file to the image of process with given id.
@@ -519,28 +616,29 @@ public:
         return (int) CCR [1][0];
     }
 
-    ~OS() {
+    ~HandleInitProcess() {
         for (auto & itr : process_table)
             delete itr.second;
 
     }
 private:
-    Process *init; // first process created.
-    std::map<int, Process*> process_table;
+    InitProcess *init; // first process created.
+    std::map<int, HandleThread*> process_table;
     std::queue<int> requestQueue; // for round robing scheduling process queue.
+    std::list<int> finished;
     int count = 0;
 
     /**
      * returns the process with given id.
      */
-    Process* process(int id){
+    HandleThread* process(int id){
         return process_table[id];
     }
 
     /**
      * get the current process on CPU.
      */
-    Process* current(){
+    HandleThread* current(){
         int id = getCurrentID();
         assert(id <= count);
         return process(id);
@@ -552,10 +650,10 @@ private:
      */
     int contextSwitch(int id) {
         assert(id <= count);
-        Process *p = process(id); // will be switched to.
+        HandleThread *p = process(id); // will be switched to.
         int old_id = current()->getID();
-        current()->fromCPU();
-        p->toCPU();
+        current()->setThreadSpecificData();
+        p->getThreadSpecificData();
         return old_id;
     }
 
@@ -563,9 +661,9 @@ private:
      * the requested process being interrupted.
      */
     void interrupt(int id){
-        assert(process(id)->getState() != Process::State::Blocked);
-        process(id)->changeState(Process::State::Blocked);
-        process(id)->fromCPU();
+        assert(process(id)->getCurrentState() != Blocked);
+        process(id)->setCurrentState(Blocked);
+        process(id)->setThreadSpecificData();
 
         requestQueue.push(id); // added to queue for scheduling.
     }
@@ -574,18 +672,18 @@ private:
 //        assert(pid == process(cid)->getParentID() && process(pid)->isMyChild(cid));
         bool not_found = process_table.find(cid) == process_table.end();
 
-        return not_found && process(pid)->isMyChild(cid);
+        return not_found;
     }
 
 };
 
-OS  os;
+HandleInitProcess  kernel;
 
 /*You implement your handler here*/
 void SPIM_timerHandler()
 {
    // Implement your handler..
-   os.schedule();
+   kernel.schedule();
 
 }
 /* Decides which syscall to execute or simulate.  Returns zero upon
@@ -738,8 +836,8 @@ do_syscall ()
        * fork, the two processes, the parent and the child have the same memory image.
        */
         case FORK_SYSCALL: {
-            os.updateInit();
-            os.fork();
+            kernel.updateInit();
+            kernel.fork();
             break;
         }
 
@@ -748,8 +846,8 @@ do_syscall ()
          * $a0 > 0 wait for the child process ID with given $a0.
          */
         case WAITPID_SYSCALL: {
-            os.updateInit();
-            os.waitpid(os.getCurrentID(), R[REG_A0]);
+            kernel.updateInit();
+            kernel.waitpid(kernel.getCurrentID(), R[REG_A0]);
             break;
         }
 
@@ -757,26 +855,26 @@ do_syscall ()
          * this call changes the image of a given id and run a new program.
          */
         case EXECVE_SYSCALL: {
-            os.updateInit();
+            kernel.updateInit();
             char name[30];
             strcpy(name, (char*) mem_reference (R[REG_A0]));
-            os.execve(os.getCurrentID(), name);
+            kernel.execve(kernel.getCurrentID(), name);
             break;
         }
 
         /**
-         * exit syscall for the os, kills the caller process (also erases it from p table) and
+         * exit syscall for the kernel, kills the caller process (also erases it from p table) and
          * schedules it again.
          */
         case PROCESS_EXIT_SYSCALL:{
             spim_return_value = 0;
 
-            if (os.getCurrentID() == 0) // if init, terminate os.
+            if (kernel.getCurrentID() == 0) // if init, terminate kernel.
                 return 0;
             else // delete current process from process table.
-                os.kill(os.getCurrentID());
+                kernel.kill(kernel.getCurrentID());
 
-            os.schedule(false);
+            kernel.schedule(false);
             PC -=4; // decrement PC to neutralize increment after this syscall.
             break;
         }

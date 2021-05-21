@@ -131,7 +131,7 @@ typedef struct Thread{
 }thread;
 /*init process info*/
 typedef struct InitProcess{
-    /*Initial Process Info*/
+    /*Initial InitProcess Info*/
     int processID;// will be 0
 
     //process specific data
