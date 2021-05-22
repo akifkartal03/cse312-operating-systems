@@ -250,9 +250,7 @@ public:
         setProcess();
         tid = 1;
         curTid = 0;
-        first = true;
         createMainThread();
-
         //createThread(true);
         //doContextSwitch(1);
 
@@ -432,8 +430,7 @@ public:
 
         next->printThreadInfo();
         write_output(console_out, "queueSize:%d\n",readyQueue.size());
-        if (next->getThreadID() != 0 && first){
-            first = false;
+        if (next->getThreadID() != 0){
             runAsm(next->getFuncName());
         }
         else{
@@ -528,6 +525,9 @@ public:
             //thread temp2 = getThread(curTid)->getThread();
             PC = starting_address();
 
+            char filename[41];
+            strcpy(filename, (char*) mem_reference (R[REG_A1]));
+
             getThread(curTid)->setThreadSpecificData();
             //setProcess();
             //temp2.t_PC = starting_address();
@@ -572,7 +572,6 @@ private:
     queue<int> readyQueue; //round robing scheduling thread queue.
     int tid; //counter for unique tid
     int curTid;
-    bool first;
 };
 
 HandleInitProcess kernel;
