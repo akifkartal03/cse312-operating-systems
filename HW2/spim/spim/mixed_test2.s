@@ -1,7 +1,7 @@
 .data
-program1:   .asciiz "tests/helloworld.s"
-program2:   .asciiz "tests/helloworld.s"
-program3:   .asciiz "tests/helloworld.s"
+program1:   .asciiz "helloworld.s"
+program2:   .asciiz "helloworld.s"
+program3:   .asciiz "helloworld.s"
 msg4:       .asciiz "waiting for childs..\n"
 
 .text

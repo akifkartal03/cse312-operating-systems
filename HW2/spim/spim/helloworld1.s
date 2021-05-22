@@ -1,5 +1,5 @@
         .data
-msg:   .asciiz "Hello World\n"
+msg:   .asciiz "Hello World1\n"
 	.extern foobar 4
 
         .text

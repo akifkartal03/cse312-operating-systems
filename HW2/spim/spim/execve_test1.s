@@ -3,7 +3,7 @@ msg:   .asciiz "helloworld.s"
 
 .text
 
-main:   li $v0, 23      
+main:   li $v0, 20      # execve current process.
         la $a0, msg
         syscall
 
