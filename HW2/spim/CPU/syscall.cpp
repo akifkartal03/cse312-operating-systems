@@ -525,9 +525,6 @@ public:
             //thread temp2 = getThread(curTid)->getThread();
             PC = starting_address();
 
-            char filename[41];
-            strcpy(filename, (char*) mem_reference (R[REG_A1]));
-
             getThread(curTid)->setThreadSpecificData();
             //setProcess();
             //temp2.t_PC = starting_address();

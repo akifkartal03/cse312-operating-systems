@@ -1,10 +1,9 @@
   
-        .data
-msg:   .asciiz "helloworld.s"
-msg0:   .asciiz "helloworld1.s"
-msg1:   .asciiz "helloworld2.s"
-msg3:  .asciiz "Thread returned!\n"
-msg2:  .asciiz "Waiting for thread...\n"
+.data
+
+msg:   .asciiz "test.s"
+msg3:  .asciiz "Thread finished!\n"
+msg2:  .asciiz "Waiting to join thread...\n"
 
 .text
 
@@ -20,15 +19,15 @@ main:
         li $v0, 23
         syscall
 
-exit:   li $v0, 4       # syscall 4 (print_str)
+exit:   li $v0, 4       
         la $a0, msg2
         syscall
 
-        li $v0, 19      # wait for any thread
+        li $v0, 19      
         syscall
-        beqz $v0, exit  # return == 0, keep waiting.
+        beqz $v0, exit  
 
-        li $v0, 4       # syscall 4 (print_str)
+        li $v0, 4       
         la $a0, msg3
         syscall
 
