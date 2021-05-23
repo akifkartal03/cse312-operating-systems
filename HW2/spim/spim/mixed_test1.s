@@ -1,13 +1,16 @@
   
 .data
 
-msg:   .asciiz "test.s"
+msg:   .asciiz "helloworld1.s"
 msg3:  .asciiz "Thread finished!\n"
 msg2:  .asciiz "Waiting to join thread...\n"
+msg1:  .asciiz "Helloo\n"
 
 .text
 
 main:   
+        la $a1, msg1 
+
         li $v0, 18 
         la $a0, msg  
         syscall

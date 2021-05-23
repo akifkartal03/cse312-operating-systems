@@ -421,13 +421,15 @@ public:
         if (next == NULL){
             return;
         }
+        char filename[41];
+        strcpy(filename, (char*) mem_reference (R[REG_A1]));
         write_output(console_out, "***Thread Was Switched***\n");
         if (!finished)
             handleInterrupt();
         next->setCurrentState(Running);
         curTid = next->getThreadID();
         next->getThreadSpecificData();
-
+        strcpy((char*) mem_reference (R[REG_A1]),filename);
         next->printThreadInfo();
         write_output(console_out, "queueSize:%d\n",readyQueue.size());
         if (next->getThreadID() != 0){
@@ -524,7 +526,6 @@ public:
             read_assembly_file(filename);
             //thread temp2 = getThread(curTid)->getThread();
             PC = starting_address();
-
             getThread(curTid)->setThreadSpecificData();
             //setProcess();
             //temp2.t_PC = starting_address();
