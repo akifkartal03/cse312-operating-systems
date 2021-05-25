@@ -58,7 +58,7 @@
 \begin{titlepage}
 
 	\begin{flushright}
-	\textsc{\large April 2, 2021} \\
+	\textsc{\large April 5, 2021} \\
 	\end{flushright}
 	\begin{center}
 	\Large{\bfseries GTU Department of Computer Engineering \\ CSE312/CSE504 - Spring 2021 \\ Homework 1 Report(README)  } \\
@@ -81,25 +81,24 @@ In order to run spim you need to install followings;
 \end{itemize}
 
 \section{Running Spim}
-\textbf{Note:} I provide the makefile with source codes if you use it, it will compile both spim and shell.c file. Therefore you don't have to use it.
-You can run shell based program in 5 different ways;
+\textbf{Note:} I provide the makefile with source codes if you use it, it will compile both spim and shell.c file, therefore you don't have to use it.\\
+\textbf{Note:} While creating shell.asm file \textbf{I didn't use online mips compiler} since it produces very complex mips assembly code which is difficult to deal with it. Instead, I created shell.asm file myself by converting C code line by line into mips assembly very carefully and by using create process syscall.\\ \\
+You can run shell based program in 3 different ways;
 \begin{itemize}
-	\item Compile shell.c then just run "./shell".
-	\item run "./spim -file "shell.asm" (assembly version of shell.c file).
-	\item run "./spim -file "shellHelp.asm" (original shell file with infinite loop).
-	\item run "./spim" then type read "shellHelper.asm" then type run.
-	\item run "./spim" then type read "shell.asm" then type run.
+	\item Compile shell.c then run "./shell". After that write "./spim -file shellHelp.asm" and hit enter.
+	\item run "./spim -file shell.asm" (mips assembly version of shell.c file).
+	\item run "./spim -file shellHelp.asm" (helper file to run shell.asm in spim).
 \end{itemize}
 \subsection{Running asm files in spim}
 In order to run .asm file by using my shell after doing one of above just type filename.asm
 For example;\\
-run "./shell" then type BubbleSort.asm \\ \\
+run "./spim -file shellHelp.asm" then type BubbleSort.asm \\ \\
 In order to create process \textbf{context switching} was made by using some memory handling codes from mem.cpp file in spim source code. \\ \\
 In order to stop shell just type \textbf{exit}.\\ \\
 A simple \textbf{test result} is following;
 \begin{figure}[H]
     \centering
-	\includegraphics[width=6in, height=3in]{res.JPG}
+	\includegraphics[width=6in, height=2.7in]{res.JPG}
 	\caption[Optional caption]{}
 	\label{}
 \end{figure}                              
