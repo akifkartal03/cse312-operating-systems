@@ -161,6 +161,8 @@ public:
     HandleThread(){
         myThread.currentState=Blocked;
         myThread.threadID = -1;
+        firstRun = true;
+        //myThread.t_stack_seg = (mem_word *) xmalloc(myThread.t_stack_size);
     };
     HandleThread(thread newThread){
         myThread = newThread;
@@ -183,6 +185,15 @@ public:
     void setID(int newID){
         myThread.threadID = newID;
     }
+    void setPC(mem_addr newPC){
+        myThread.t_PC = newPC;
+    }
+    void setFirstRun(bool first){
+        firstRun = first;
+    }
+    bool getFirstRun(){
+        return firstRun;
+    }
     void setName(char newName[41]){
         strcpy(myThread.name,newName);
     }
@@ -195,31 +206,39 @@ public:
     thread getThread(){
         return myThread;
     }
+    void setV0(){
+        myThread.t_R[REG_V0] = 4;
+    }
     void setThread(thread newThread){
         myThread = newThread;
     }
     void setThreadSpecificData(){
-        myThread.t_stack_seg_h = stack_seg_h;
-        myThread.t_stack_seg_b = stack_seg_b;
-        myThread.t_stack_bot = stack_bot;
-        myThread.t_stack_seg = stack_seg;
+        //myThread.t_stack_seg_h = stack_seg_h;
+        //myThread.t_stack_seg_b = stack_seg_b;
+        //myThread.t_stack_bot = stack_bot;
+        //myThread.t_stack_seg = stack_seg;
         myThread.t_nPC = nPC;
         myThread.t_PC = PC;
-        memcpy(myThread.t_R, R, R_LENGTH * sizeof(reg_word));
+        memcpy(myThread.t_R, R, sizeof(R));
     }
     void getThreadSpecificData(){
-        stack_seg_h = myThread.t_stack_seg_h;
-        stack_seg_b = myThread.t_stack_seg_b;
-        stack_bot = myThread.t_stack_bot;
-        stack_seg = myThread.t_stack_seg;
+        //stack_seg_h = myThread.t_stack_seg_h;
+        //stack_seg_b = myThread.t_stack_seg_b;
+        //stack_bot = myThread.t_stack_bot;
+        //stack_seg = myThread.t_stack_seg;
         nPC = myThread.t_nPC;
         PC = myThread.t_PC;
-        memcpy(R, myThread.t_R, R_LENGTH * sizeof(reg_word));
+        memcpy(R, myThread.t_R, sizeof(R));
+        write_output(console_out, "last pc:0x%x\n",PC);
+        write_output(console_out, "v0:%d\n",R[REG_V0]);
+        write_output(console_out, "ID:%d\n",myThread.threadID);
+
+
     }
 
     void printThreadInfo(){
-        write_output(console_out,"ThreadID:%d\nThread Name:%s\nThread Function Name:%s\nProgram Counter:0x%x\nStack Pointer address:%d\n",
-                     myThread.threadID,myThread.name,myThread.funcName,myThread.t_PC,myThread.threadID);
+        write_output(console_out,"ThreadID:%d\nThread Name:%s\nThread Function Name:%s\nProgram Counter:0x%x\nStack Pointer address:%d\nV0:%d\n",
+                     myThread.threadID,myThread.name,myThread.funcName,myThread.t_PC,myThread.threadID,myThread.t_R[REG_V0]);
         switch (myThread.currentState){
             case State::Blocked:
                 write_output(console_out, "State:Blocked\n");
@@ -242,6 +261,7 @@ public:
     }
 private:
     thread myThread;
+    bool firstRun;
 };
 class HandleInitProcess{
 public:
@@ -251,6 +271,7 @@ public:
         tid = 1;
         curTid = 0;
         createMainThread();
+        runned = false;
         //createThread(true);
         //doContextSwitch(1);
 
@@ -264,19 +285,25 @@ public:
     void addNewThread(HandleThread *thread1){
         threadTable.push_back(thread1);
     }
+    void setRun(bool res){
+        runned = res;
+    }
+    bool getRun(){
+        return runned;
+    }
     void setProcess(){
         process.i_data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
         process.i_stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
         process.i_k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
-        process.i_data_seg = (mem_word *) xmalloc( process.i_data_size);
-        process.i_stack_seg = (mem_word *) xmalloc( process.i_stack_size);
-        process.i_k_data_seg = (mem_word *) xmalloc( process.i_k_data_size);
+        //process.i_data_seg = (mem_word *) xmalloc( process.i_data_size);
+        //process.i_stack_seg = (mem_word *) xmalloc( process.i_stack_size);
+        //process.i_k_data_seg = (mem_word *) xmalloc( process.i_k_data_size);
 
         process.i_data_seg = data_seg;
         process.i_stack_seg = stack_seg;
         process.i_k_data_seg = k_data_seg;
 
-        memcpy(process.i_R, R, R_LENGTH * sizeof(reg_word));
+        memcpy(process.i_R, R, sizeof(R));
         process.i_HI = HI;
         process.i_LO = LO;
         process.i_PC = PC;
@@ -326,7 +353,7 @@ public:
         stack_seg = process.i_stack_seg;
         k_data_seg = process.i_k_data_seg;
 
-        memcpy(R, process.i_R, R_LENGTH * sizeof(reg_word));
+        memcpy(R, process.i_R, sizeof(R));
         HI = process.i_HI;
         LO = process.i_LO;
         PC = process.i_PC;
@@ -358,20 +385,24 @@ public:
         sprintf(tempName,"thread%d",tid);
         thread3->setName(tempName);
         thread3->setCurrentState(Ready);
+        thread3->setFirstRun(true);
         PC += BYTES_PER_WORD;
         thread3->setThreadSpecificData();
         PC -= BYTES_PER_WORD;
-        char filename[41];
-        strcpy(filename, (char*) mem_reference (R[REG_A0]));
-        thread3->setFuncName(filename);
+        char functionName[41];
+        strcpy(functionName, (char*) mem_reference (R[REG_A0]));
+        thread3->setFuncName(functionName);
+        thread3->setPC(find_symbol_address(functionName));
+        thread3->setV0();
         threadTable.push_back(thread3);
         readyQueue.push(thread3->getThreadID());
         tid++;
         printAllThreads();
-        R[REG_V0] = 0;
+        //R[REG_V0] = 0;
     }
     //join is waiting a any thread
     void joinThread(){
+        int fin = 0;
         /*int result = -2;
         int id = getWaiting();
         if (id != curTid){
@@ -398,11 +429,24 @@ public:
         }
         R[REG_V0] = result;
         doContextSwitch(1);*/
-        if (finishedThreads.size() == tid)
+
+        /*if (curTid != 0){
+            if (finishedThreads.size() != ++tid)
+                runMain(0);
+            else
+                runMain(1);
+        }
+        printFin();*/
+
+        if (finishedThreads.size() == tid - 1){
             R[REG_V0] = 0;
-        else
+        }
+        else{
             R[REG_V0] = -1;
-        printFin();
+            doContextSwitch(0);
+        }
+
+        //doContextSwitch(0);
 
     }
     int getWaiting(){
@@ -411,6 +455,18 @@ public:
         else{
             threadTable.front()->getThreadID();
         }
+    }
+    void runMain(int fin){
+        HandleThread *next = getThread(0);
+        if (!fin)
+            handleInterrupt();
+        next->setCurrentState(Running);
+        curTid = next->getThreadID();
+
+        next->getThreadSpecificData();
+        next->printThreadInfo();
+        write_output(console_out, "in main\n");
+
     }
     void doContextSwitch(int finished){
 
@@ -421,24 +477,35 @@ public:
         if (next == NULL){
             return;
         }
-        char filename[41];
-        strcpy(filename, (char*) mem_reference (R[REG_A1]));
+        //char filename[41];
+        //strcpy(filename, (char*) mem_reference (R[REG_A1]));
         write_output(console_out, "***Thread Was Switched***\n");
-        if (!finished)
+
+        if (!finished){
             handleInterrupt();
+        }
         next->setCurrentState(Running);
         curTid = next->getThreadID();
+        write_output(console_out, "CURID:%d\n",curTid);
         next->getThreadSpecificData();
-        strcpy((char*) mem_reference (R[REG_A1]),filename);
+        //strcpy((char*) mem_reference (R[REG_A1]),filename);
         next->printThreadInfo();
-        write_output(console_out, "queueSize:%d\n",readyQueue.size());
-        if (next->getThreadID() != 0){
-            runAsm(next->getFuncName());
+       // write_output(console_out, "queueSize:%d\n",readyQueue.size());
+        //write_output(console_out, "last pc:0x%x\n",PC);
+        //write_output(console_out, "v0:%d\n",R[REG_V0]);
+        //printFin();
+        /*if (next->getThreadID() != 0 && next->getFirstRun()){
+            next->setFirstRun(false);
+            runFunction(next->getFuncName());
         }
         else{
-            if (readyQueue.size() > 0)
+            if (readyQueue.size() > 0){
+                PC +=4;
+                next->setThreadSpecificData();
                 doContextSwitch(0);
+            }
             else{
+                PC +=4;
                 thread temp = getThread(curTid)->getThread();
                 temp.t_stack_seg = NULL;
                 getThread(curTid)->setThread(temp);
@@ -454,12 +521,13 @@ public:
                 PC = temp.t_PC;
                 PC += 4;
                 write_output(console_out, "last pc:0x%x\n",PC);
+
             }
-
-
-        }
+        }*/
     }
     void handleInterrupt(){
+        //write_output(console_out, "ID:%d\n",curTid);
+        //write_output(console_out, "PCC:0x%x\n",PC);
         HandleThread *curr = getThread(curTid);
         curr->setCurrentState(Blocked);
         curr->setThreadSpecificData();
@@ -509,35 +577,39 @@ public:
     void exitThread(int id){
         removeThread(id);
     }
-    void runAsm(char *filename){
-        if (access(filename, F_OK) != -1) {
+    void runFunction(char *functionName){
+        thread temp = getThread(curTid)->getThread();
+        write_output(console_out, "FUNCName::%s\n",functionName);
+        temp.t_stack_seg = NULL;
+        getThread(curTid)->setThread(temp);
+        //getProcess();
+        text_seg = NULL;
+        data_seg = NULL;
+        k_text_seg = NULL;
+        k_data_seg = NULL;
 
-            thread temp = getThread(curTid)->getThread();
-            write_output(console_out, "FİLEName::%s\n",filename);
-            temp.t_stack_seg = NULL;
-            getThread(curTid)->setThread(temp);
-            //getProcess();
-            text_seg = NULL;
-            data_seg = NULL;
-            k_text_seg = NULL;
-            k_data_seg = NULL;
+        //initialize_world(exception_file_name, false);
+        //read_assembly_file(filename);
+        //thread temp2 = getThread(curTid)->getThread();
+        PC = find_symbol_address(functionName);
+        write_output(console_out, "last pc:0x%x\n",PC);
+        /*while (true){
+            PC +=4;
 
-            initialize_world(exception_file_name, false);
-            read_assembly_file(filename);
-            //thread temp2 = getThread(curTid)->getThread();
-            PC = starting_address();
+            if (PC == find_symbol_address("exitThr"))
+                break;
             getThread(curTid)->setThreadSpecificData();
-            //setProcess();
-            //temp2.t_PC = starting_address();
-            //getThread(curTid)->setThread(temp2);
-        }
-        else
-        {
-            write_output(console_out, "%s is not found!!\n", filename);
-        }
+        }*/
+        PC +=4;
+        getThread(curTid)->setThreadSpecificData();
+        write_output(console_out, "after get\n");
+        //setProcess();
+        //temp2.t_PC = starting_address();
+        //getThread(curTid)->setThread(temp2);
     }
     void printFin(){
         write_output(console_out, "size:%d\n", finishedThreads.size());
+        write_output(console_out, "tid:%d\n", tid);
     }
     int getFinSize(){
         return finishedThreads.size();
@@ -570,6 +642,7 @@ private:
     queue<int> readyQueue; //round robing scheduling thread queue.
     int tid; //counter for unique tid
     int curTid;
+    bool runned;
 };
 
 HandleInitProcess kernel;
@@ -614,6 +687,7 @@ do_syscall ()
             break;
 
         case PRINT_STRING_SYSCALL:
+            //write_output (console_out, "heree!!\n");
             write_output (console_out, "%s", mem_reference (R[REG_A0]));
             break;
 
@@ -727,13 +801,16 @@ do_syscall ()
             break;
         }
         case CREATE_THREAD_SYSCALL: {
-            //write_output(console_out, "neler oluyor burdaaaaaa!!!\n");
-            kernel.createThread();
+            //write_output(console_out, "CREATE THREADDD!!\n");
+            //write_output(console_out, "CREATE PC:0x%x\n",PC);
+            if (!kernel.getRun())
+                kernel.createThread();
             //kernel.doContextSwitch(0);
             break;
         }
 
         case JOIN_THREAD_SYSCALL: {
+            kernel.setRun(true);
             //write_output(console_out, "in joinn\n");
             kernel.joinThread();
             break;
@@ -742,12 +819,16 @@ do_syscall ()
 
         case EXIT_THREAD_SYSCALL: {
             spim_return_value = 0;
+            write_output(console_out, "EXITTTTT!!!\n");
+            write_output(console_out, "exit pc:0x%x\n",PC);
+            write_output (console_out, "exit v0:%d\n", R[REG_V0]);
+            //write_output(console_out, "v0:%d\n",R[REG_V0]);
             if (kernel.getCurrent() == 0)
                 return 0; // if no thread then terminate
             else {
                 kernel.removeThread(kernel.getCurrent());
                 kernel.doContextSwitch(1);
-                PC -=4;
+                //PC -=4;
 
             }
             break;
@@ -763,7 +844,7 @@ do_syscall ()
         }
         case LOAD_ASM_SYSCALL:{
             //write_output(console_out, "load ID:%d\n",kernel.getCurrent());
-            //PC +=8;
+            kernel.setRun(true);
             //write_output(console_out, "load pc:0x%x\n",PC);
             kernel.doContextSwitch(0);
             break;

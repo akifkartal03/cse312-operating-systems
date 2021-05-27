@@ -152,6 +152,7 @@ do_syscall ()
       break;
 
     case PRINT_STRING_SYSCALL:
+
       write_output (console_out, "%s", mem_reference (R[REG_A0]));
       break;
 
