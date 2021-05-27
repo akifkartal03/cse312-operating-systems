@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.1)  2 APR 2021 22:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.1)  5 APR 2021 16:25
 entering extended mode
 **./Report.tex
 (Report.tex
@@ -290,23 +290,27 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
 (C:\Users\AKIF\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<res.JPG, id=7, 544.28343pt x 350.05782pt>
+Underfull \hbox (badness 10000) in paragraph at lines 84--87
+
+ []
+
+<res.JPG, id=7, 566.115pt x 262.73157pt>
 File: res.JPG Graphic file (type jpg)
 <use res.JPG>
-Package pdftex.def Info: res.JPG  used on input line 102.
-(pdftex.def)             Requested size: 433.61682pt x 216.81459pt.
+Package pdftex.def Info: res.JPG  used on input line 101.
+(pdftex.def)             Requested size: 433.62941pt x 195.13591pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 94--105
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 94--105
+Underfull \hbox (badness 10000) in paragraph at lines 93--104
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 94--105
+Underfull \hbox (badness 10000) in paragraph at lines 93--104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--104
 
  []
 
@@ -316,11 +320,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--105
 Here is how much of TeX's memory you used:
  5655 strings out of 479372
  86461 string characters out of 2857149
- 383043 words of memory out of 3000000
+ 384043 words of memory out of 3000000
  23047 multiletter control sequences out of 15000+200000
  407249 words of font info for 42 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,11n,79p,227b,290s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 71i,11n,79p,367b,290s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/AKIF/AppData/Local/Programs/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/AKIF/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/AKIF/AppData/Loca
@@ -328,7 +332,7 @@ l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/AKIF
 /AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:
 /Users/AKIF/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbo
 ls/msam10.pfb>
-Output written on Report.pdf (2 pages, 114286 bytes).
+Output written on Report.pdf (2 pages, 116072 bytes).
 PDF statistics:
  30 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
