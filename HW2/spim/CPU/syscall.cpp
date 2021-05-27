@@ -162,7 +162,10 @@ public:
         myThread.currentState=Blocked;
         myThread.threadID = -1;
         firstRun = true;
-        //myThread.t_stack_seg = (mem_word *) xmalloc(myThread.t_stack_size);
+        //myThread.t_stack_seg = (mem_word *) xmalloc(ROUND_UP(initial_stack_size, BYTES_PER_WORD));
+        //write_output(console_out, "HEREEEE!!\n");
+        //memcpy(myThread.t_stack_seg, stack_seg, ROUND_UP(initial_stack_size, BYTES_PER_WORD));
+        //write_output(console_out, "HEREEEE22!!\n");
     };
     HandleThread(thread newThread){
         myThread = newThread;
@@ -213,41 +216,44 @@ public:
         myThread = newThread;
     }
     void setThreadSpecificData(){
-        //myThread.t_stack_seg_h = stack_seg_h;
-        //myThread.t_stack_seg_b = stack_seg_b;
-        //myThread.t_stack_bot = stack_bot;
-        //myThread.t_stack_seg = stack_seg;
+        myThread.t_stack_seg_h = stack_seg_h;
+        myThread.t_stack_seg_b = stack_seg_b;
+        myThread.t_stack_bot = stack_bot;
+        //memcpy(myThread.t_stack_seg, stack_seg, STACK_SIZE);
+        myThread.t_stack_seg = stack_seg;
         myThread.t_nPC = nPC;
         myThread.t_PC = PC;
-        memcpy(myThread.t_R, R, sizeof(R));
+        myThread.t_stack_size = STACK_SIZE;
+        //memcpy(myThread.t_R, R, sizeof(R));
     }
     void getThreadSpecificData(){
-        //stack_seg_h = myThread.t_stack_seg_h;
-        //stack_seg_b = myThread.t_stack_seg_b;
-        //stack_bot = myThread.t_stack_bot;
-        //stack_seg = myThread.t_stack_seg;
+        stack_seg_h = myThread.t_stack_seg_h;
+        stack_seg_b = myThread.t_stack_seg_b;
+        stack_bot = myThread.t_stack_bot;
+        //memcpy(stack_seg,myThread.t_stack_seg, STACK_SIZE);
+        stack_seg = myThread.t_stack_seg;
         nPC = myThread.t_nPC;
         PC = myThread.t_PC;
-        memcpy(R, myThread.t_R, sizeof(R));
-        write_output(console_out, "last pc:0x%x\n",PC);
-        write_output(console_out, "v0:%d\n",R[REG_V0]);
-        write_output(console_out, "ID:%d\n",myThread.threadID);
+        //memcpy(R, myThread.t_R, sizeof(R));
+        //write_output(console_out, "last pc:0x%x\n",PC);
+        //write_output(console_out, "v0:%d\n",R[REG_V0]);
+        //write_output(console_out, "ID:%d\n",myThread.threadID);
 
 
     }
 
     void printThreadInfo(){
-        write_output(console_out,"ThreadID:%d\nThread Name:%s\nThread Function Name:%s\nProgram Counter:0x%x\nStack Pointer address:%d\nV0:%d\n",
-                     myThread.threadID,myThread.name,myThread.funcName,myThread.t_PC,myThread.threadID,myThread.t_R[REG_V0]);
+        write_output(console_out,"ThreadID:%d\nThread Name:%s\nThread Function Name:%s\nProgram Counter:0x%x\nStack Pointer address:%x\n",
+                     myThread.threadID,myThread.name,myThread.funcName,myThread.t_PC,myThread.t_stack_seg+myThread.threadID*64);
         switch (myThread.currentState){
             case State::Blocked:
-                write_output(console_out, "State:Blocked\n");
+                write_output(console_out, "State:Blocked\n\n");
                 break;
             case State::Running:
-                write_output(console_out, "State:Running\n");
+                write_output(console_out, "State:Running\n\n");
                 break;
             case State::Ready:
-                write_output(console_out, "State:Ready\n");
+                write_output(console_out, "State:Ready\n\n");
                 break;
             default:
                 exit(EXIT_FAILURE);
@@ -268,6 +274,7 @@ public:
     HandleInitProcess(){
         process.processID = 0;
         setProcess();
+        getProcess();
         tid = 1;
         curTid = 0;
         createMainThread();
@@ -397,7 +404,7 @@ public:
         threadTable.push_back(thread3);
         readyQueue.push(thread3->getThreadID());
         tid++;
-        printAllThreads();
+        //printAllThreads();
         //R[REG_V0] = 0;
     }
     //join is waiting a any thread
@@ -465,7 +472,7 @@ public:
 
         next->getThreadSpecificData();
         next->printThreadInfo();
-        write_output(console_out, "in main\n");
+        //write_output(console_out, "in main\n");
 
     }
     void doContextSwitch(int finished){
@@ -486,8 +493,10 @@ public:
         }
         next->setCurrentState(Running);
         curTid = next->getThreadID();
-        write_output(console_out, "CURID:%d\n",curTid);
+        //write_output(console_out, "CURID:%d\n",curTid);
         next->getThreadSpecificData();
+        if (curTid!=0)
+            R[REG_V0] = 4;
         //strcpy((char*) mem_reference (R[REG_A1]),filename);
         next->printThreadInfo();
        // write_output(console_out, "queueSize:%d\n",readyQueue.size());
@@ -579,7 +588,7 @@ public:
     }
     void runFunction(char *functionName){
         thread temp = getThread(curTid)->getThread();
-        write_output(console_out, "FUNCName::%s\n",functionName);
+        //write_output(console_out, "FUNCName::%s\n",functionName);
         temp.t_stack_seg = NULL;
         getThread(curTid)->setThread(temp);
         //getProcess();
@@ -810,6 +819,11 @@ do_syscall ()
         }
 
         case JOIN_THREAD_SYSCALL: {
+            if (!kernel.getRun()){
+                write_output(console_out, "------------All Threads-----------\n");
+                kernel.printAllThreads();
+                write_output(console_out, "-----------------------------------\n");
+            }
             kernel.setRun(true);
             //write_output(console_out, "in joinn\n");
             kernel.joinThread();
@@ -819,9 +833,9 @@ do_syscall ()
 
         case EXIT_THREAD_SYSCALL: {
             spim_return_value = 0;
-            write_output(console_out, "EXITTTTT!!!\n");
-            write_output(console_out, "exit pc:0x%x\n",PC);
-            write_output (console_out, "exit v0:%d\n", R[REG_V0]);
+            //write_output(console_out, "EXITTTTT!!!\n");
+            //write_output(console_out, "exit pc:0x%x\n",PC);
+            //write_output (console_out, "exit v0:%d\n", R[REG_V0]);
             //write_output(console_out, "v0:%d\n",R[REG_V0]);
             if (kernel.getCurrent() == 0)
                 return 0; // if no thread then terminate
@@ -844,6 +858,12 @@ do_syscall ()
         }
         case LOAD_ASM_SYSCALL:{
             //write_output(console_out, "load ID:%d\n",kernel.getCurrent());
+            if (!kernel.getRun()){
+                write_output(console_out, "------------All Threads-----------\n");
+                kernel.printAllThreads();
+                write_output(console_out, "-----------------------------------\n");
+            }
+
             kernel.setRun(true);
             //write_output(console_out, "load pc:0x%x\n",PC);
             kernel.doContextSwitch(0);
