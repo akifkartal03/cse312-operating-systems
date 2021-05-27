@@ -20,6 +20,9 @@ newLine:   .asciiz "\n"
 .globl consumer1
 
 main:
+    #TODO
+    #in loop producer consumner random i do context siwtch sysycall.....
+
 
 	li $t0,0
 	li $t1,10
@@ -107,7 +110,7 @@ consumerMutex:
 
     #mutex locked
     #remove element to buffer
-    subi $t0,$t0,1
+    addi $t0,$t0,-1
 
     li $v0, 22  #mutex unlock syscall
     syscall
@@ -152,7 +155,7 @@ consumerLoop1:
     bgt $t3,$t1,exitConsumerThread1 # if i > 10 then exit
 
     #remove element to buffer
-    subi $t0,$t0,1
+    addi $t0,$t0,-1
 
     addi $t3,$t3,1 # ++i
     j consumerLoop1
