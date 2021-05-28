@@ -156,16 +156,22 @@ typedef struct InitProcess{
     int i_k_data_size;
 
 }initProcess;
+
+/*define mutex info*/
+typedef struct mutexInfo{
+    char name[41];
+    int ownerID;
+    bool isLocked;
+
+}mutex;
+/*handle each thread*/
 class HandleThread{
 public:
     HandleThread(){
         myThread.currentState=Blocked;
         myThread.threadID = -1;
         firstRun = true;
-        //myThread.t_stack_seg = (mem_word *) xmalloc(ROUND_UP(initial_stack_size, BYTES_PER_WORD));
-        //write_output(console_out, "HEREEEE!!\n");
-        //memcpy(myThread.t_stack_seg, stack_seg, ROUND_UP(initial_stack_size, BYTES_PER_WORD));
-        //write_output(console_out, "HEREEEE22!!\n");
+
     };
     HandleThread(thread newThread){
         myThread = newThread;
@@ -219,25 +225,20 @@ public:
         myThread.t_stack_seg_h = stack_seg_h;
         myThread.t_stack_seg_b = stack_seg_b;
         myThread.t_stack_bot = stack_bot;
-        //memcpy(myThread.t_stack_seg, stack_seg, STACK_SIZE);
         myThread.t_stack_seg = stack_seg;
         myThread.t_nPC = nPC;
         myThread.t_PC = PC;
         myThread.t_stack_size = STACK_SIZE;
-        //memcpy(myThread.t_R, R, sizeof(R));
+
     }
     void getThreadSpecificData(){
         stack_seg_h = myThread.t_stack_seg_h;
         stack_seg_b = myThread.t_stack_seg_b;
         stack_bot = myThread.t_stack_bot;
-        //memcpy(stack_seg,myThread.t_stack_seg, STACK_SIZE);
+
         stack_seg = myThread.t_stack_seg;
         nPC = myThread.t_nPC;
         PC = myThread.t_PC;
-        //memcpy(R, myThread.t_R, sizeof(R));
-        //write_output(console_out, "last pc:0x%x\n",PC);
-        //write_output(console_out, "v0:%d\n",R[REG_V0]);
-        //write_output(console_out, "ID:%d\n",myThread.threadID);
 
 
     }
@@ -269,6 +270,7 @@ private:
     thread myThread;
     bool firstRun;
 };
+/*Kernel Class*/
 class HandleInitProcess{
 public:
     HandleInitProcess(){
@@ -279,8 +281,7 @@ public:
         curTid = 0;
         createMainThread();
         runned = false;
-        //createThread(true);
-        //doContextSwitch(1);
+
 
     }
     HandleInitProcess(InitProcess newProcess){
@@ -302,9 +303,7 @@ public:
         process.i_data_size = ROUND_UP(initial_data_size, BYTES_PER_WORD);
         process.i_stack_size = ROUND_UP(initial_stack_size, BYTES_PER_WORD);
         process.i_k_data_size = ROUND_UP(initial_k_data_size, BYTES_PER_WORD);
-        //process.i_data_seg = (mem_word *) xmalloc( process.i_data_size);
-        //process.i_stack_seg = (mem_word *) xmalloc( process.i_stack_size);
-        //process.i_k_data_seg = (mem_word *) xmalloc( process.i_k_data_size);
+
 
         process.i_data_seg = data_seg;
         process.i_stack_seg = stack_seg;
@@ -334,9 +333,7 @@ public:
         process.i_k_data_top = k_data_top;
         process.i_k_data_seg_b = (BYTE_TYPE *) k_data_seg;
         process.i_k_data_seg_h = (short *) k_data_seg;
-        //memcpy(process.i_data_seg, data_seg, process.i_data_size);
-        //memcpy(process.i_stack_seg, stack_seg, process.i_stack_size);
-        //memcpy(process.i_k_data_seg, k_data_seg, process.i_k_data_size);
+
         process.i_text_seg = text_seg;
         process.i_k_text_seg = k_text_seg;
     }
@@ -404,46 +401,11 @@ public:
         threadTable.push_back(thread3);
         readyQueue.push(thread3->getThreadID());
         tid++;
-        //printAllThreads();
-        //R[REG_V0] = 0;
+
     }
     //join is waiting a any thread
     void joinThread(){
-        int fin = 0;
-        /*int result = -2;
-        int id = getWaiting();
-        if (id != curTid){
-            if (id != -1){
-                if (isFinished(id)){
-                    result = id;
-                    removeThread(id);
-                }
-                else{
-                    result = 0;
-                }
-            }
-            else{
-                result = -1; //no child is waiting
-            }
-        }
-        else{
-            if (threadTable.size() > 1){
-                result  = 0;
-            }
-            else{
-                result = -1;
-            }
-        }
-        R[REG_V0] = result;
-        doContextSwitch(1);*/
 
-        /*if (curTid != 0){
-            if (finishedThreads.size() != ++tid)
-                runMain(0);
-            else
-                runMain(1);
-        }
-        printFin();*/
 
         if (finishedThreads.size() == tid - 1){
             R[REG_V0] = 0;
@@ -452,8 +414,6 @@ public:
             R[REG_V0] = -1;
             doContextSwitch(0);
         }
-
-        //doContextSwitch(0);
 
     }
     int getWaiting(){
@@ -484,8 +444,7 @@ public:
         if (next == NULL){
             return;
         }
-        //char filename[41];
-        //strcpy(filename, (char*) mem_reference (R[REG_A1]));
+
         write_output(console_out, "***Thread Was Switched***\n");
 
         if (!finished){
@@ -493,50 +452,16 @@ public:
         }
         next->setCurrentState(Running);
         curTid = next->getThreadID();
-        //write_output(console_out, "CURID:%d\n",curTid);
+
         next->getThreadSpecificData();
         if (curTid!=0)
             R[REG_V0] = 4;
-        //strcpy((char*) mem_reference (R[REG_A1]),filename);
+
         next->printThreadInfo();
-       // write_output(console_out, "queueSize:%d\n",readyQueue.size());
-        //write_output(console_out, "last pc:0x%x\n",PC);
-        //write_output(console_out, "v0:%d\n",R[REG_V0]);
-        //printFin();
-        /*if (next->getThreadID() != 0 && next->getFirstRun()){
-            next->setFirstRun(false);
-            runFunction(next->getFuncName());
-        }
-        else{
-            if (readyQueue.size() > 0){
-                PC +=4;
-                next->setThreadSpecificData();
-                doContextSwitch(0);
-            }
-            else{
-                PC +=4;
-                thread temp = getThread(curTid)->getThread();
-                temp.t_stack_seg = NULL;
-                getThread(curTid)->setThread(temp);
-                //getProcess();
-                text_seg = NULL;
-                data_seg = NULL;
-                k_text_seg = NULL;
-                k_data_seg = NULL;
 
-                initialize_world(exception_file_name, false);
-                read_assembly_file("mixed_test1.s");
-                //thread temp2 = getThread(curTid)->getThread();
-                PC = temp.t_PC;
-                PC += 4;
-                write_output(console_out, "last pc:0x%x\n",PC);
-
-            }
-        }*/
     }
     void handleInterrupt(){
-        //write_output(console_out, "ID:%d\n",curTid);
-        //write_output(console_out, "PCC:0x%x\n",PC);
+
         HandleThread *curr = getThread(curTid);
         curr->setCurrentState(Blocked);
         curr->setThreadSpecificData();
@@ -546,6 +471,11 @@ public:
     void printAllThreads(){
         for (auto & thr : threadTable) {
             thr->printThreadInfo();
+        }
+        for (auto & mtx : mutexTable) {
+            write_output(console_out, "Mutex Name:%s\n",mtx.name);
+            write_output(console_out, "Mutex OwnerID:%d\n",mtx.ownerID);
+            write_output(console_out, "Mutex Locked:%d\n",mtx.isLocked);
         }
     }
     bool isFinished(int threadID){
@@ -583,12 +513,53 @@ public:
             threadTable.erase(threadTable.begin() + index);
         }
     }
+    void addMutex(mutex m){
+        if (!isContainMutex(m))
+            mutexTable.push_back(m);
+    }
+    bool isContainMutex(mutex m){
+        for (auto & mtx : mutexTable) {
+            if(strcmp(mtx.name,m.name) == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+    bool lockMutex(char *name){
+        if (!isLocked(name)){
+            for (auto & mtx : mutexTable) {
+                if(strcmp(mtx.name, name) == 0){
+                    mtx.isLocked = true;
+                    mtx.ownerID = curTid;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    void unlockMutex(char *name){
+        if (isLocked(name)){
+            for (auto & mtx : mutexTable) {
+                if(strcmp(mtx.name, name) == 0){
+                    mtx.isLocked = false;
+                }
+            }
+        }
+    }
+    bool isLocked(char *temName){
+        for (auto & mtx : mutexTable) {
+            if(strcmp(mtx.name, temName) == 0){
+                return mtx.isLocked;
+            }
+        }
+        return false;
+    }
     void exitThread(int id){
         removeThread(id);
     }
     void runFunction(char *functionName){
         thread temp = getThread(curTid)->getThread();
-        //write_output(console_out, "FUNCName::%s\n",functionName);
+
         temp.t_stack_seg = NULL;
         getThread(curTid)->setThread(temp);
         //getProcess();
@@ -597,24 +568,14 @@ public:
         k_text_seg = NULL;
         k_data_seg = NULL;
 
-        //initialize_world(exception_file_name, false);
-        //read_assembly_file(filename);
-        //thread temp2 = getThread(curTid)->getThread();
+
         PC = find_symbol_address(functionName);
         write_output(console_out, "last pc:0x%x\n",PC);
-        /*while (true){
-            PC +=4;
 
-            if (PC == find_symbol_address("exitThr"))
-                break;
-            getThread(curTid)->setThreadSpecificData();
-        }*/
         PC +=4;
         getThread(curTid)->setThreadSpecificData();
         write_output(console_out, "after get\n");
-        //setProcess();
-        //temp2.t_PC = starting_address();
-        //getThread(curTid)->setThread(temp2);
+
     }
     void printFin(){
         write_output(console_out, "size:%d\n", finishedThreads.size());
@@ -645,13 +606,14 @@ public:
         return (threadTable.size() == 0);
     }
 private:
-    InitProcess process;
-    vector<HandleThread*> threadTable;
+    initProcess process; //init process
+    vector<HandleThread*> threadTable; //thread table
+    vector<mutex> mutexTable; // mutex table
     vector<HandleThread*> finishedThreads;
     queue<int> readyQueue; //round robing scheduling thread queue.
     int tid; //counter for unique tid
-    int curTid;
-    bool runned;
+    int curTid; // current thread id
+    bool runned; // is already runned main
 };
 
 HandleInitProcess kernel;
@@ -810,11 +772,10 @@ do_syscall ()
             break;
         }
         case CREATE_THREAD_SYSCALL: {
-            //write_output(console_out, "CREATE THREADDD!!\n");
-            //write_output(console_out, "CREATE PC:0x%x\n",PC);
+
             if (!kernel.getRun())
                 kernel.createThread();
-            //kernel.doContextSwitch(0);
+
             break;
         }
 
@@ -825,7 +786,6 @@ do_syscall ()
                 write_output(console_out, "-----------------------------------\n");
             }
             kernel.setRun(true);
-            //write_output(console_out, "in joinn\n");
             kernel.joinThread();
             break;
         }
@@ -833,43 +793,42 @@ do_syscall ()
 
         case EXIT_THREAD_SYSCALL: {
             spim_return_value = 0;
-            //write_output(console_out, "EXITTTTT!!!\n");
-            //write_output(console_out, "exit pc:0x%x\n",PC);
-            //write_output (console_out, "exit v0:%d\n", R[REG_V0]);
-            //write_output(console_out, "v0:%d\n",R[REG_V0]);
+
             if (kernel.getCurrent() == 0)
                 return 0; // if no thread then terminate
             else {
                 kernel.removeThread(kernel.getCurrent());
                 kernel.doContextSwitch(1);
-                //PC -=4;
 
             }
             break;
 
         }
         case LOCK_MUTEX_SYSCALL:{
-
+            if (kernel.lockMutex((char*) mem_reference (R[REG_A0])))
+                R[REG_V0] = 0;
+            else
+                R[REG_V0] = -1;
             break;
         }
         case UNLOCK_MUTEX_SYSCALL:{
+            kernel.unlockMutex((char*) mem_reference (R[REG_A0]));
+            break;
+        }
+        case CREATE_MUTEX_SYSCALL:{
+
+            mutex newMutex;
+            newMutex.isLocked = false;
+            newMutex.ownerID = 0;
+            strcpy(newMutex.name, (char*) mem_reference (R[REG_A0]));
+            kernel.addMutex(newMutex);
 
             break;
         }
-        case LOAD_ASM_SYSCALL:{
-            //write_output(console_out, "load ID:%d\n",kernel.getCurrent());
-            if (!kernel.getRun()){
-                write_output(console_out, "------------All Threads-----------\n");
-                kernel.printAllThreads();
-                write_output(console_out, "-----------------------------------\n");
-            }
-
-            kernel.setRun(true);
-            //write_output(console_out, "load pc:0x%x\n",PC);
+        case CONTEXT_SWITCH_SYSCALL:{
             kernel.doContextSwitch(0);
             break;
         }
-
 
         default:
             run_error ("Unknown system call: %d\n", R[REG_V0]);
