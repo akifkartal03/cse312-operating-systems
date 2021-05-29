@@ -36,9 +36,10 @@ PageTable::PageTable(unsigned int frmSize, unsigned int numVr, unsigned int numP
     virtualSize = numVirFrame*pageSize;
     physSize = numPhysFrame*pageSize;
     table = new Entry[numVirFrame];
-    /*for (int i = 0; i < numVirFrame; i++)
-        table[i].pageFrameNumber = 0;*/
-
+    for (int i = 0; i < numVirFrame; i++)
+    {
+        table[i].setPageFrameNumber(i);
+    } 
 }
 int PageTable::getIndex(unsigned int address) const{
     return address / pageSize;

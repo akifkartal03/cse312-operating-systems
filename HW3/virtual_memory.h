@@ -22,8 +22,8 @@ private:
     unsigned int physicalSize;
     unsigned int printInterval;
 
-    int *memory;
-    PageTable *pageTable;
+    int *memory; //physical memory
+    PageTable *pageTable; // virtual memory
 };
 VirtualMemory::VirtualMemory(unsigned int frmSize, unsigned int numVr, unsigned int numPy, unsigned int interval)
     : frameSize(frmSize), numPhys(numPy), numVir(numVr), printInterval(interval)
@@ -41,11 +41,13 @@ VirtualMemory::VirtualMemory(unsigned int frmSize, unsigned int numVr, unsigned 
 
 void VirtualMemory::set(unsigned int index, int value, char *tName){
     unsigned int address = pageTable->get(index);
+    //cout <<" set adress:" << address << endl;
     memory[address] = value;
 
 }
 int VirtualMemory::get(unsigned int index,char *tName){
     unsigned int address = pageTable->get(index);
+    //cout <<" get adress:" << address << endl;
     return memory[address];
 
 }

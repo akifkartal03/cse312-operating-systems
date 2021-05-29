@@ -19,9 +19,6 @@ public:
     void setPresent(bool);
     void setPageFrameNumber(unsigned int frmNumber);
     
-
-    
-
 private:
     bool referenced;
     bool modified;
