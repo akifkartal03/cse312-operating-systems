@@ -18,16 +18,14 @@ typedef struct Boot{
 }superBlock;
 
 typedef struct directory{
-    char fileName[8];
-    char extension[8];
-    char attributes;
-    char reserved[10];
-    char time[2];
-    char date[2];
-    char firstBlockNumber[2];
-    unsigned int fileSize;
-
-
+    char fileName[8]; //8 byte
+    char extension[3]; // 3 byte
+    char attributes; // 1 byte
+    char reserved[10]; //10 byte
+    char time[2]; // 2 byte
+    char date[2]; // 2 byte
+    char firstBlockNumber[2]; // 2 byte
+    unsigned int fileSize; // 4 byte
 }entry;
 
 

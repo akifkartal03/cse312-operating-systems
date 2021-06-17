@@ -34,7 +34,6 @@ void createFile(double blockSize, char *fileName){
     ftruncate(fd, fileSize*1024);
     initSystem(blockSize, fileName,mb, fileSize*1024);
     
-    
 }
 int openFile(char *fileName){
     int fd = open(fileName, O_RDWR|O_CREAT|O_EXCL, 0666);
@@ -54,13 +53,13 @@ void initSystem(double blockSize, char *fileName,int fileSize, int byteSize){
     disk.diskName = fileName;
 }
 void printInfo(){
-    printf("\t****Virtual Disk Has Created!****\n");
+    printf("\n\t****Virtual Disk Has Created!****\n");
     printf("-----------------------------------------------------\n");
     printf("Disk Name: %s\n",disk.diskName);
     printf("Disk Size: %dMB\n",disk.diskSize);
     printf("Block Size: %.1fKB\n",disk.BlockSize);
     printf("Max Number of Entry: %d\n",disk.numberOfEntry);
-    printf("-----------------------------------------------------\n");
+    printf("-----------------------------------------------------\n\n");
 
 }
 int main(int argc, char *argv[])
