@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -pedantic-errors -std=gnu99 -g
 LIBS = -lm
-DEPS = main.h
-OBJS = main.o
+DEPS = boot.h
+OBJS = boot.o test.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS) $(LIBS)
