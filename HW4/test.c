@@ -14,26 +14,21 @@ int openFile(char *fileName){
 
 void createFile(double blockSize, char *fileName){
     int fileSize;
-    int mb;
     if (blockSize == 0.50)
     {
         fileSize = 2048;
-        mb = 2;
     }
     else if (blockSize == 1.0)
     {
         fileSize = 4096;
-        mb = 4;
     }
     else if (blockSize == 2.0)
     {
         fileSize = 8192;
-        mb = 8;
     }
     else if (blockSize == 4.0)
     {
         fileSize = 16384;
-        mb = 16;
     }
     else{
         printf("Wrong block Size, Try Again!\n");
@@ -41,7 +36,7 @@ void createFile(double blockSize, char *fileName){
     }
     int fd = openFile(fileName);
     ftruncate(fd, fileSize*1024);
-    initSystem(blockSize, fileName,fd);
+    initSystem(fd,blockSize, fileName);
     
 }
 
@@ -53,7 +48,7 @@ int main(int argc, char *argv[])
         printf("Arguments are wrong!!\n");
         exit(EXIT_FAILURE);
     }
-    double blockSize = atof(argv[1]);
+    float blockSize = atof(argv[1]);
     createFile(blockSize,argv[2]);
     return 0;
 }

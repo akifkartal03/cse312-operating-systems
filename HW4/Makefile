@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -pedantic-errors -std=gnu99 -g
 LIBS = -lm
-DEPS = boot.h
-OBJS = boot.o test.o
+DEPS = data_structures.h fat12.h
+OBJS = fat12.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS) $(LIBS)
