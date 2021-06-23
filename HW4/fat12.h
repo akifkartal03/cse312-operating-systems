@@ -4,9 +4,8 @@
 
 void createFile(double blockSize, char *fileName);
 int openFile(char *fileName);
-void initSystem(int fd, float blockSize, char *fileName);
+void initSystem(float blockSize, char *fileName);
 void printInfo(superBlock disk);
-void writeToFile(int fd,superBlock disk);
 
 
 #endif

@@ -17,7 +17,7 @@ typedef  uint32_t  byte4; // 4 bytes
 
 
 typedef struct __attribute__ ((__packed__)) BootSector{
-    char diskName[13];
+    char diskName[20];
     byte4 diskSize;
     float blockSize;
     byte4 numberOfEntry;

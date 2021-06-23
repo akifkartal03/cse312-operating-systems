@@ -54,12 +54,12 @@ void createFile(double blockSize, char *fileName){
     }
     int fd = openFile(fileName);
     ftruncate(fd, fileSize*1024);
-    initSystem(fd,blockSize, fileName);
+    initSystem(blockSize, fileName);
     
 }
 
 
-void initSystem(int fd, float blockSize, char *fileName){
+void initSystem(float blockSize, char *fileName){
     int fileSize;
     int mb;
     if (blockSize == 0.5)
@@ -93,7 +93,6 @@ void initSystem(int fd, float blockSize, char *fileName){
     disk.rootDirPosition= disk.totalByte - (disk.totalByte - sizeof(superBlock) - (18 * disk.blockSize*1024));
     disk.dataStartPosition= disk.rootDirPosition + sizeof(entry) + 1;
     strcpy(disk.diskName ,fileName);
-    writeToFile(fd,disk);
     printInfo(disk);
     
 }
@@ -109,25 +108,4 @@ void printInfo(superBlock disk){
     printf("Root Directory Start Adress: %d\n",disk.rootDirPosition);
     printf("Data Region Start Adress: %d\n",disk.dataStartPosition);
     printf("-----------------------------------------------------\n\n");
-}
-void writeToFile(int fd, superBlock disk){
-    //TODOO!!
-    //write(fd,)
-    uint8_t filesystem[(1024*1024)*2] = {0};
-    superBlock *s = (superBlock *)filesystem;
-    s->blockSize = disk.blockSize;
-    s->diskSize = disk.diskSize;
-    s->numberOfEntry = disk.numberOfEntry;
-    s->numberOfBlock = disk.numberOfBlock;
-    s->bootSectorPosition= disk.bootSectorPosition;
-    s->fatTablePosition= disk.fatTablePosition;
-    s->rootDirPosition= disk.rootDirPosition;
-    s->dataStartPosition= disk.dataStartPosition;
-    strcpy(s->diskName,disk.diskName);
-    entry rootDir;
-    rootDir.attributes = 0;
-    strcpy(rootDir.fileName,"/");
-    rootDir.firstBlockNumber = s->dataStartPosition;
-    write(fd, filesystem, sizeof(filesystem));
-
 }
