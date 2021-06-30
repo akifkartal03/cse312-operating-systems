@@ -1,3 +1,0 @@
-/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/akif/Desktop/operating-system/cmake-build-debug/CMakeFiles/operating_system.dir
